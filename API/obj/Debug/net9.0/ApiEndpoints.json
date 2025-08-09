@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "API.Controller.CategoryController",
+    "Method": "GetAllCategories",
+    "RelativePath": "api/Category",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.CategoryController",
+    "Method": "AddCategory",
+    "RelativePath": "api/Category",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryModel",
+        "Type": "DTO.Models.AddModel\u002BCategory",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

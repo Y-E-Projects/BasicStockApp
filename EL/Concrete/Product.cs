@@ -1,0 +1,19 @@
+﻿using EL.Concrete.Base;
+using Microsoft.EntityFrameworkCore;
+
+namespace EL.Concrete
+{
+    public class Product : BaseEntity
+    {
+        public required string Name { get; set; }
+
+        [Precision(18, 2)]
+        public decimal Price { get; set; }
+        public required string Barcode { get; set; }
+
+        public Guid CategoryKey { get; set; }
+        public Category Category { get; set; } = null!;
+
+        public List<PriceHistory> PriceHistories { get; set; } = null!;
+    }
+}
