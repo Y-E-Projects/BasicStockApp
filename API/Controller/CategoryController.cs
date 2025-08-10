@@ -24,16 +24,17 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public IActionResult AddCategory([FromBody] AddModel.Category categoryModel)
+        public IActionResult AddCategory([FromBody] AddModel.Category model)
         {
-            if (categoryModel == null || string.IsNullOrWhiteSpace(categoryModel.Name))
-            {
-                return BadRequest("Invalid category data.");
-            }
-            
+            if (model == null || string.IsNullOrWhiteSpace(model.Name))
+                return BadRequest(new
+                {
+                    message = "Invalid category data.",
+                });
+
             var category = new Category
             {
-                Name = categoryModel.Name
+                Name = model.Name
             };
 
             _categoryService.Add(category);

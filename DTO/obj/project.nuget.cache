@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "i8faSveWYZU=",
+  "dgSpecHash": "AUy5oC1wcfY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\X\\Desktop\\Projects\\StockApp\\DTO\\DTO.csproj",
+  "projectFilePath": "C:\\Users\\X\\Desktop\\Projects\\BasicStockApp\\DTO\\DTO.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\X\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\X\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

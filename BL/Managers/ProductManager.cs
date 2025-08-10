@@ -22,5 +22,9 @@ namespace BL.Managers
         public Product GetByKey(Guid key) => _productDal.GetByKey(key);
 
         public void Update(Product entity) => _productDal.Update(entity);
+
+        public bool CheckBarcodeExists(string barcode) => _productDal.GetAll().Any(p => p.Barcode == barcode);
+
+        public Product? GetWithBarcode(string barcode) => _productDal.GetAll().FirstOrDefault(p => p.Barcode == barcode);
     }
 }

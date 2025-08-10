@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\X\\Desktop\\Projects\\StockApp\\EL\\EL.csproj": {}
+    "C:\\Users\\X\\Desktop\\Projects\\BasicStockApp\\EL\\EL.csproj": {}
   },
   "projects": {
-    "C:\\Users\\X\\Desktop\\Projects\\StockApp\\EL\\EL.csproj": {
+    "C:\\Users\\X\\Desktop\\Projects\\BasicStockApp\\EL\\EL.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\X\\Desktop\\Projects\\StockApp\\EL\\EL.csproj",
+        "projectUniqueName": "C:\\Users\\X\\Desktop\\Projects\\BasicStockApp\\EL\\EL.csproj",
         "projectName": "EL",
-        "projectPath": "C:\\Users\\X\\Desktop\\Projects\\StockApp\\EL\\EL.csproj",
+        "projectPath": "C:\\Users\\X\\Desktop\\Projects\\BasicStockApp\\EL\\EL.csproj",
         "packagesPath": "C:\\Users\\X\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\X\\Desktop\\Projects\\StockApp\\EL\\obj\\",
+        "outputPath": "C:\\Users\\X\\Desktop\\Projects\\BasicStockApp\\EL\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
