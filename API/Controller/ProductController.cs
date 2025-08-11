@@ -25,9 +25,9 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult GetList()
         {
-            var products = _productService.GetAll();
+            var products = _productService.GetList();
             return Ok(products);
         }
 
@@ -46,6 +46,12 @@ namespace API.Controller
                     message = "Geçersiz kategori değeri.",
                 });
 
+            if (_categoryService.GetByKey(model.CategoryKey).IsVisible == false)
+                return BadRequest(new
+                {
+                    message = "Bu kategori görünür olmadığı için ekleme yapılamaz.",
+                });
+
             Product newProduct = new Product
             {
                 Name = model.Name,
@@ -62,10 +68,10 @@ namespace API.Controller
             });
         }
 
-        [HttpGet("GetWithKey")]
-        public IActionResult GetWithKey(Guid key)
+        [HttpGet("GetDetail")]
+        public IActionResult GetDetail(Guid key)
         {
-            var product = _productService.GetByKey(key);
+            var product = _productService.GetDetailWithKey(key);
             if (product == null)
                 return NotFound(new
                 {
@@ -114,6 +120,19 @@ namespace API.Controller
             {
                 message = "Fiyat güncellendi.",
             });
+        }
+
+        [HttpGet("GetListWithCategory")]
+        public IActionResult GetProductsWithCategory(Guid key)
+        {
+            if (_categoryService.GetByKey(key) == null)
+                return BadRequest(new
+                {
+                    message = "İlgili kategori bulunamadı",
+                });
+
+            var products = _productService.GetListWithCategory(key);
+            return Ok(products);
         }
     }
 }

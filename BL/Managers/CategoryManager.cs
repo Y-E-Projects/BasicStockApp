@@ -1,5 +1,6 @@
 using BL.Abstract;
 using DAL.Abstract;
+using DTO.Models;
 using EL.Concrete;
 
 namespace BL.Managers
@@ -22,5 +23,17 @@ namespace BL.Managers
         public Category GetByKey(Guid key) => _categoryDal.GetByKey(key);
 
         public void Update(Category entity) => _categoryDal.Update(entity);
+
+        public List<ListModel.Category> GetList()
+        {
+            var categories = _categoryDal.FullAttached();
+            return categories.Select(c => new ListModel.Category
+            {
+                Key = c.Key,
+                Name = c.Name,
+                Count = c.Products.Count,
+                IsVisible = c.IsVisible
+            }).ToList();
+        }
     }
 }

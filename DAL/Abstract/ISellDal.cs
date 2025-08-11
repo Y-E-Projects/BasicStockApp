@@ -5,5 +5,6 @@ namespace DAL.Abstract
 {
     public interface ISellDal : IGenericDal<Sell>
     {
+        List<Sell> FullAttached();
     }
 }

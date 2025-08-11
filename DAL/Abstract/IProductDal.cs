@@ -5,5 +5,8 @@ namespace DAL.Abstract
 {
     public interface IProductDal : IGenericDal<Product>
     {
+        List<Product> CategoryAttached();
+        List<Product> CategoryAndPriceAttached();
+        List<Product> FullAttached();
     }
 }

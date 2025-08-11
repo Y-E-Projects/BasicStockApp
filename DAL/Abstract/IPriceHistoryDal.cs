@@ -5,5 +5,6 @@ namespace DAL.Abstract
 {
     public interface IPriceHistoryDal : IGenericDal<PriceHistory>
     {
+        List<PriceHistory> FullAttached();
     }
 }

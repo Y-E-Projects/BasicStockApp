@@ -15,5 +15,6 @@ namespace EL.Concrete
         public Category Category { get; set; } = null!;
 
         public List<PriceHistory> PriceHistories { get; set; } = null!;
+        public List<SellItem> SellItems { get; set; } = null!;
     }
 }

@@ -17,9 +17,9 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public IActionResult GetAllCategories()
+        public IActionResult GetList()
         {
-            var categories = _categoryService.GetAll();
+            var categories = _categoryService.GetList();
             return Ok(categories);
         }
 
@@ -34,11 +34,37 @@ namespace API.Controller
 
             var category = new Category
             {
-                Name = model.Name
+                Name = model.Name,
+                IsVisible = model.IsVisible,
             };
 
             _categoryService.Add(category);
-            return CreatedAtAction(nameof(GetAllCategories), new { id = category.Key }, category);
+            return Ok(new
+            {
+                message = "Kategori başarılı bir şekilde eklenmiştir.",
+                categoryKey = category.Key,
+            });
+        }
+
+        [HttpPatch("ChangeVisible")]
+        public IActionResult ChangeVisible([FromBody] Guid key)
+        {
+            var category = _categoryService.GetByKey(key);
+            if (category == null)
+                return NotFound(new
+                {
+                    message = "Kategori bulunamadı.",
+                });
+
+            category.IsVisible = !category.IsVisible;
+            _categoryService.Update(category);
+
+            string visibilityStatus = category.IsVisible ? "görünür" : "görünmez";
+
+            return Ok(new
+            {
+                message = $"Kategori görünürlüğü başarıyla {visibilityStatus} olarak değiştirildi.",
+            });
         }
     }
 }

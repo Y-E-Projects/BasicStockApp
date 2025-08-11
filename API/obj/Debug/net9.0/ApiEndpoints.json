@@ -1,7 +1,7 @@
 [
   {
     "ContainingType": "API.Controller.CategoryController",
-    "Method": "GetAllCategories",
+    "Method": "GetList",
     "RelativePath": "api/Category",
     "HttpMethod": "GET",
     "IsController": true,
@@ -26,8 +26,40 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "API.Controller.CategoryController",
+    "Method": "ChangeVisible",
+    "RelativePath": "api/Category/ChangeVisible",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.PriceHistoryController",
+    "Method": "GetWithProduct",
+    "RelativePath": "api/PriceHistory/GetWithProduct",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "API.Controller.ProductController",
-    "Method": "GetAll",
+    "Method": "GetList",
     "RelativePath": "api/Product",
     "HttpMethod": "GET",
     "IsController": true,
@@ -53,6 +85,38 @@
   },
   {
     "ContainingType": "API.Controller.ProductController",
+    "Method": "GetDetail",
+    "RelativePath": "api/Product/GetDetail",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.ProductController",
+    "Method": "GetProductsWithCategory",
+    "RelativePath": "api/Product/GetListWithCategory",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.ProductController",
     "Method": "GetWithBarcode",
     "RelativePath": "api/Product/GetWithBarcode",
     "HttpMethod": "GET",
@@ -62,22 +126,6 @@
       {
         "Name": "barcode",
         "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controller.ProductController",
-    "Method": "GetWithKey",
-    "RelativePath": "api/Product/GetWithKey",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "key",
-        "Type": "System.Guid",
         "IsRequired": false
       }
     ],
@@ -95,6 +143,38 @@
         "Name": "model",
         "Type": "DTO.Models.AddModel\u002BPriceHistory",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.SellController",
+    "Method": "CreateSellAsync",
+    "RelativePath": "api/Sell",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "DTO.Models.AddModel\u002BCreateSellRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.SellController",
+    "Method": "GetSellByCode",
+    "RelativePath": "api/Sell/GetWithCode",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

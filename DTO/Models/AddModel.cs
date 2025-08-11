@@ -8,6 +8,7 @@ namespace DTO.Models
         public class Category
         {
             public required string Name { get; set; }
+            public bool IsVisible { get; set; }
         }
 
         public class Product
@@ -22,6 +23,17 @@ namespace DTO.Models
         {
             public decimal NewPrice { get; set; }
             public Guid ProductKey { get; set; }
+        }
+
+        public class CreateSellRequest
+        {
+            public List<CreateSellItemRequest> Items { get; set; } = new();
+        }
+
+        public class CreateSellItemRequest
+        {
+            public Guid ProductKey { get; set; }
+            public int Quantity { get; set; }
         }
     }
 }
