@@ -1,16 +1,22 @@
+using API;
 using BL.DependencyInjections;
 using DAL.Context;
 using DTO.Models;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
-// DbContext kaydý
 builder.Services.AddDbContext<MainDbContext>(options =>
     options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+builder.Services.AddSingleton<IResourceLocalizer, ResourceLocalizer>();
 
 ConfigureServices(builder.Services, configuration);
 
@@ -29,6 +35,14 @@ void ConfigureServices(IServiceCollection services, IConfiguration config)
     services.AddEndpointsApiExplorer();
     ConfigureSwagger(services);
     ConfigureSecurityPolicies(services);
+
+    services.Configure<RequestLocalizationOptions>(options =>
+    {
+        var supportedCultures = new[] { new CultureInfo("en-US"), new CultureInfo("tr-TR") };
+        options.DefaultRequestCulture = new RequestCulture(config["Localization:DefaultCulture"] ?? "en-US");
+        options.SupportedCultures = supportedCultures;
+        options.SupportedUICultures = supportedCultures;
+    });
 }
 
 void ConfigureSwagger(IServiceCollection services)
@@ -75,6 +89,10 @@ void ConfigureMiddleware(WebApplication app)
 
     app.UseHttpsRedirection();
     app.UseStaticFiles();
+
+    var locOptions = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>();
+    app.UseRequestLocalization(locOptions.Value);
+
     app.UseRouting();
 
     app.UseCors("DefaultPolicy");

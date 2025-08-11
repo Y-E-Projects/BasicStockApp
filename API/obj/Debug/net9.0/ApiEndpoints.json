@@ -36,7 +36,7 @@
       {
         "Name": "key",
         "Type": "System.Guid",
-        "IsRequired": true
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

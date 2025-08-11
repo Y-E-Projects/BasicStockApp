@@ -10,18 +10,21 @@ namespace API.Controller
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private readonly IResourceLocalizer _localizer;
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IPriceHistoryService _priceHistoryService;
 
         public ProductController(
-            IProductService productService, 
-            ICategoryService categoryService, 
-            IPriceHistoryService priceHistoryService)
+            IProductService productService,
+            ICategoryService categoryService,
+            IPriceHistoryService priceHistoryService,
+            IResourceLocalizer localizer)
         {
             _productService = productService;
             _categoryService = categoryService;
             _priceHistoryService = priceHistoryService;
+            _localizer = localizer;
         }
 
         [HttpGet]
@@ -37,19 +40,19 @@ namespace API.Controller
             if (_productService.CheckBarcodeExists(model.Barcode))
                 return BadRequest(new
                 {
-                    message = "Bu barkodu içeren bir ürün zaten var.",
+                    message = _localizer.Localize("BarcodeAlreadyExists"),
                 });
 
             if (_categoryService.GetByKey(model.CategoryKey) == null)
                 return BadRequest(new
                 {
-                    message = "Geçersiz kategori değeri.",
+                    message = _localizer.Localize("InvalidCategory"),
                 });
 
             if (_categoryService.GetByKey(model.CategoryKey).IsVisible == false)
                 return BadRequest(new
                 {
-                    message = "Bu kategori görünür olmadığı için ekleme yapılamaz.",
+                    message = _localizer.Localize("CategoryNotVisible"),
                 });
 
             Product newProduct = new Product
@@ -63,7 +66,7 @@ namespace API.Controller
             _productService.Add(newProduct);
             return Ok(new
             {
-                message = "Ürün başarıyla eklendi.",
+                message = _localizer.Localize("ProductAddedSuccessfully"),
                 productKey = newProduct.Key,
             });
         }
@@ -75,7 +78,7 @@ namespace API.Controller
             if (product == null)
                 return NotFound(new
                 {
-                    message = "Ürün bulunamadı.",
+                    message = _localizer.Localize("ProductNotFound"),
                 });
 
             return Ok(product);
@@ -88,7 +91,7 @@ namespace API.Controller
             if (product == null)
                 return NotFound(new
                 {
-                    message = "Ürün bulunamadı.",
+                    message = _localizer.Localize("ProductNotFound"),
                 });
 
             return Ok(product);
@@ -101,7 +104,7 @@ namespace API.Controller
             if (product == null)
                 return NotFound(new
                 {
-                    message = "Ürün bulunamadı.",
+                    message = _localizer.Localize("ProductNotFound"),
                 });
 
             decimal backPrice = product.Price;
@@ -118,7 +121,7 @@ namespace API.Controller
 
             return Ok(new
             {
-                message = "Fiyat güncellendi.",
+                message = _localizer.Localize("PriceUpdatedSuccessfully"),
             });
         }
 
@@ -128,7 +131,7 @@ namespace API.Controller
             if (_categoryService.GetByKey(key) == null)
                 return BadRequest(new
                 {
-                    message = "İlgili kategori bulunamadı",
+                    message = _localizer.Localize("CategoryNotFound"),
                 });
 
             var products = _productService.GetListWithCategory(key);

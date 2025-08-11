@@ -9,6 +9,7 @@ namespace API.Controller
     [ApiController]
     public class SellController : ControllerBase
     {
+        private readonly IResourceLocalizer _localizer;
         private readonly IProductService _productService;
         private readonly ISellService _sellService;
         private readonly ISellItemService _sellItemService;
@@ -16,18 +17,23 @@ namespace API.Controller
         public SellController(
             IProductService productService,
             ISellService sellService,
-            ISellItemService sellItemService)
+            ISellItemService sellItemService,
+            IResourceLocalizer localizer)
         {
             _productService = productService;
             _sellService = sellService;
             _sellItemService = sellItemService;
+            _localizer = localizer;
         }
 
         [HttpPost]
         public IActionResult CreateSellAsync([FromBody] AddModel.CreateSellRequest request)
         {
             if (request == null || request.Items == null || !request.Items.Any())
-                return BadRequest("Satış için ürün listesi boş olamaz.");
+                return BadRequest(new
+                {
+                    message = _localizer.Localize("EmptySellItemList"),
+                });
 
             try
             {
@@ -43,7 +49,10 @@ namespace API.Controller
                 {
                     var product = _productService.GetByKey(item.ProductKey);
                     if (product == null)
-                        return NotFound($"Ürün bulunamadı: {item.ProductKey}");
+                        return NotFound(new
+                        {
+                            message = _localizer.Localize("ProductNotFound")
+                        });
 
                     var lineTotal = product.Price * item.Quantity;
                     totalAmount += lineTotal;
@@ -64,12 +73,17 @@ namespace API.Controller
 
                 return Ok(new
                 {
-                    message = "Satış başarıyla oluşturuldu.",
+                    message = _localizer.Localize("SellCreatedSuccessfully"),
                 });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Satış oluşturulurken hata oluştu: {ex.Message}");
+                string messageTemplate = _localizer.Localize("SellCreationError");
+                string message = string.Format(messageTemplate, ex.Message);
+                return BadRequest(new
+                {
+                    message,
+                });
             }
         }
 
@@ -77,14 +91,17 @@ namespace API.Controller
         public IActionResult GetSellByCode(string code)
         {
             if (string.IsNullOrEmpty(code))
-                return BadRequest("Satış kodu boş olamaz.");
+                return BadRequest(new
+                {
+                    message = _localizer.Localize("SellCodeCannotBeEmpty")
+                });
             
             var value = _sellService.GetByCode(code);
 
             if (value == null)
                 return NotFound(new
                 {
-                    message = "Satış bulunamadı."
+                    message = _localizer.Localize("SellNotFound")
                 });
 
             return Ok(value);

@@ -16,6 +16,14 @@
         },
         "runtime": {
           "API.dll": {}
+        },
+        "resources": {
+          "en-US/API.resources.dll": {
+            "locale": "en-US"
+          },
+          "tr-TR/API.resources.dll": {
+            "locale": "tr-TR"
+          }
         }
       },
       "Azure.Core/1.38.0": {

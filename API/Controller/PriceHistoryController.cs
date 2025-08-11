@@ -8,15 +8,18 @@ namespace API.Controller
     [ApiController]
     public class PriceHistoryController : ControllerBase
     {
+        private readonly IResourceLocalizer _localizer;
         private readonly IPriceHistoryService _priceHistoryService;
         private readonly IProductService _productService;
 
         public PriceHistoryController(
-            IPriceHistoryService priceHistoryService, 
-            IProductService productService)
+            IPriceHistoryService priceHistoryService,
+            IProductService productService,
+            IResourceLocalizer localizer)
         {
             _priceHistoryService = priceHistoryService;
             _productService = productService;
+            _localizer = localizer;
         }
 
         [HttpGet("GetWithProduct")]
@@ -25,14 +28,14 @@ namespace API.Controller
             if (_productService.GetByKey(key) == null)
                 return BadRequest(new
                 {
-                    message = "İlgili ürün bulunamadı."
+                    message = _localizer.Localize("ProductNotFound")
                 });
 
             var value = _priceHistoryService.GetWithProduct(key);
             if (value == null)
                 return BadRequest(new
                 {
-                    message = "İlgili ürün için fiyat geçmişi bulunamadı."
+                    message = _localizer.Localize("PriceHistoryNotFound")
                 });
 
             return Ok(value);

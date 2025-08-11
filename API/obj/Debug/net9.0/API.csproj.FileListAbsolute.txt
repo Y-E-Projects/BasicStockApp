@@ -347,3 +347,10 @@ C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Debug\net9.0\refint\API.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Debug\net9.0\API.pdb
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Debug\net9.0\API.genruntimeconfig.cache
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Debug\net9.0\ref\API.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\bin\Debug\net9.0\en-US\API.resources.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\bin\Debug\net9.0\tr-TR\API.resources.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Debug\net9.0\API.csproj.GenerateResource.cache
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Debug\net9.0\en-US\API.resources.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Debug\net9.0\tr-TR\API.resources.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Debug\net9.0\API.Resources.Messages.en-US.resources
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Debug\net9.0\API.Resources.Messages.tr-TR.resources

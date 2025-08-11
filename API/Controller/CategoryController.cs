@@ -9,10 +9,14 @@ namespace API.Controller
     [ApiController]
     public class CategoryController : ControllerBase
     {
+        private readonly IResourceLocalizer _localizer;
         private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(
+            IResourceLocalizer localizer,
+            ICategoryService categoryService)
         {
+            _localizer = localizer;
             _categoryService = categoryService;
         }
 
@@ -24,12 +28,12 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public IActionResult AddCategory([FromBody] AddModel.Category model)
+        public IActionResult AddCategory(AddModel.Category model)
         {
             if (model == null || string.IsNullOrWhiteSpace(model.Name))
                 return BadRequest(new
                 {
-                    message = "Invalid category data.",
+                    message = _localizer.Localize("InvalidCategoryData")
                 });
 
             var category = new Category
@@ -41,29 +45,34 @@ namespace API.Controller
             _categoryService.Add(category);
             return Ok(new
             {
-                message = "Kategori başarılı bir şekilde eklenmiştir.",
+                message = _localizer.Localize("CategoryAdded"),
                 categoryKey = category.Key,
             });
         }
 
         [HttpPatch("ChangeVisible")]
-        public IActionResult ChangeVisible([FromBody] Guid key)
+        public IActionResult ChangeVisible(Guid key)
         {
             var category = _categoryService.GetByKey(key);
             if (category == null)
                 return NotFound(new
                 {
-                    message = "Kategori bulunamadı.",
+                    message = _localizer.Localize("CategoryNotFound")
                 });
 
             category.IsVisible = !category.IsVisible;
             _categoryService.Update(category);
 
-            string visibilityStatus = category.IsVisible ? "görünür" : "görünmez";
+            string visibilityStatus = category.IsVisible
+                ? _localizer.Localize("CategoryVisible")
+                : _localizer.Localize("CategoryInvisible");
+
+            string messageTemplate = _localizer.Localize("CategoryVisibility");
+            string message = string.Format(messageTemplate, visibilityStatus);
 
             return Ok(new
             {
-                message = $"Kategori görünürlüğü başarıyla {visibilityStatus} olarak değiştirildi.",
+                message
             });
         }
     }
