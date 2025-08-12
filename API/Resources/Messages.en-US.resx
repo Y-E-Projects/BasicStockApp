@@ -177,4 +177,10 @@
   <data name="CategoryNotVisible" xml:space="preserve">
     <value>Cannot add because this category is not visible.</value>
   </data>
+  <data name="EndDateMustBeAfterOrEqualStartDate" xml:space="preserve">
+    <value>End date must be greater than or equal to start date.</value>
+  </data>
+  <data name="CategoryNameUpdatedSuccessfully" xml:space="preserve">
+    <value>Category name updated successfully.</value>
+  </data>
 </root>

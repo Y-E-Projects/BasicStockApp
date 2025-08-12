@@ -19,12 +19,6 @@ namespace DTO.Models
             public Guid CategoryKey { get; set; }
         }
 
-        public class PriceHistory
-        {
-            public decimal NewPrice { get; set; }
-            public Guid ProductKey { get; set; }
-        }
-
         public class CreateSellRequest
         {
             public List<CreateSellItemRequest> Items { get; set; } = new();

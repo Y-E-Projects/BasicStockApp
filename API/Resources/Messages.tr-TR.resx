@@ -177,4 +177,10 @@
   <data name="CategoryNotVisible" xml:space="preserve">
     <value>Bu kategori görünür olmadığı için ekleme yapılamaz.</value>
   </data>
+  <data name="EndDateMustBeAfterOrEqualStartDate" xml:space="preserve">
+    <value>Bitiş tarihi, başlangıç tarihine eşit veya ondan sonra olmalıdır.</value>
+  </data>
+  <data name="CategoryNameUpdatedSuccessfully" xml:space="preserve">
+    <value>Kategori adı başarıyla güncellendi.</value>
+  </data>
 </root>

@@ -27,6 +27,22 @@
   },
   {
     "ContainingType": "API.Controller.CategoryController",
+    "Method": "ChangeName",
+    "RelativePath": "api/Category/ChangeName",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DTO.Models.UpdateModel\u002BCategoryName",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.CategoryController",
     "Method": "ChangeVisible",
     "RelativePath": "api/Category/ChangeVisible",
     "HttpMethod": "PATCH",
@@ -36,6 +52,27 @@
       {
         "Name": "key",
         "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.DashboardController",
+    "Method": "GetDashboardData",
+    "RelativePath": "api/Dashboard/GetDashboardData",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "start",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "end",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       }
     ],
@@ -141,7 +178,7 @@
     "Parameters": [
       {
         "Name": "model",
-        "Type": "DTO.Models.AddModel\u002BPriceHistory",
+        "Type": "DTO.Models.UpdateModel\u002BProductPrice",
         "IsRequired": true
       }
     ],

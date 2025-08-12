@@ -35,7 +35,7 @@ namespace API.Controller
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] AddModel.Product model)
+        public IActionResult Create(AddModel.Product model)
         {
             if (_productService.CheckBarcodeExists(model.Barcode))
                 return BadRequest(new
@@ -98,7 +98,7 @@ namespace API.Controller
         }
 
         [HttpPatch("UpdatePrice")]
-        public IActionResult UpdatePrice([FromBody] AddModel.PriceHistory model)
+        public IActionResult UpdatePrice(UpdateModel.ProductPrice model)
         {
             var product = _productService.GetByKey(model.ProductKey);
             if (product == null)

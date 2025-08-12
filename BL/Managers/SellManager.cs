@@ -49,5 +49,19 @@ namespace BL.Managers
                 }).ToList(),
             };
         }
+
+        public int DashboardCount(DateTime? start = null, DateTime? end = null)
+        {
+            return _sellDal.GetAll(x =>
+                (start == null || x.CreatedAt >= start) &&
+                (end == null || x.CreatedAt <= end)).Count;
+        }
+
+        public decimal DashboardAmount(DateTime? start = null, DateTime? end = null)
+        {
+            return _sellDal.GetAll(x =>
+                (start == null || x.CreatedAt >= start) &&
+                (end == null || x.CreatedAt <= end)).Sum(x => x.TotalAmount);
+        }
     }
 }

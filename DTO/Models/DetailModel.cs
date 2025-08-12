@@ -44,5 +44,11 @@
             public required int Quantity { get; set; }
             public required decimal LineTotal { get; set; }
         }
+
+        public class BestSellingProduct
+        {
+            public required Guid ProductKey { get; set; }
+            public int TotalQuantity { get; set; }
+        }
     }
 }

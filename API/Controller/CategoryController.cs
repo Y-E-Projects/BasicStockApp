@@ -75,5 +75,24 @@ namespace API.Controller
                 message
             });
         }
+
+        [HttpPatch("ChangeName")]
+        public IActionResult ChangeName(UpdateModel.CategoryName model)
+        {
+            var category = _categoryService.GetByKey(model.Key);
+            if (category == null)
+                return NotFound(new
+                {
+                    message = _localizer.Localize("CategoryNotFound")
+                });
+
+            category.Name = category.Name;
+            _categoryService.Update(category);
+
+            return Ok(new
+            {
+                message = _localizer.Localize("CategoryNameUpdatedSuccessfully"),
+            });
+        }
     }
 }
