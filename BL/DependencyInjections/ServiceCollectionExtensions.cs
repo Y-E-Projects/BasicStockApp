@@ -26,6 +26,9 @@ namespace BL.DependencyInjections
             services.AddScoped<ISellItemDal, EFSellItemDal>();
             services.AddScoped<ISellItemService, SellItemManager>();
 
+            services.AddScoped<IStockHistoryDal, EFStockHistoryDal>();
+            services.AddScoped<IStockHistoryService, StockHistoryManager>();
+
             services.AddScoped(typeof(IGenericDal<>), typeof(GenericRep<>));
 
             return services;

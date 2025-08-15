@@ -12,8 +12,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
 
+var connStr = configuration.GetConnectionString("DefaultConnection") ?? 
+    throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
 builder.Services.AddDbContext<MainDbContext>(options =>
-    options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+    options.UseMySQL(connStr));
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddSingleton<IResourceLocalizer, ResourceLocalizer>();
@@ -21,6 +24,12 @@ builder.Services.AddSingleton<IResourceLocalizer, ResourceLocalizer>();
 ConfigureServices(builder.Services, configuration);
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<MainDbContext>();
+    db.Database.Migrate();
+}
 
 ConfigureMiddleware(app);
 
@@ -106,6 +115,13 @@ void ConfigureMiddleware(WebApplication app)
             c.RoutePrefix = string.Empty;
         });
     }
+
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "StockApp API V1");
+        c.RoutePrefix = string.Empty;
+    });
 
     app.MapControllers();
 }

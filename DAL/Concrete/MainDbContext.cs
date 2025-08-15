@@ -14,5 +14,6 @@ namespace DAL.Context
         public DbSet<Product> Products { get; set; }
         public DbSet<Sell> Sells { get; set; }
         public DbSet<SellItem> SellItems { get; set; }
+        public DbSet<StockHistory> StockHistories { get; set; }
     }
 }

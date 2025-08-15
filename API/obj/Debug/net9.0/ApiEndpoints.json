@@ -59,8 +59,8 @@
   },
   {
     "ContainingType": "API.Controller.DashboardController",
-    "Method": "GetDashboardData",
-    "RelativePath": "api/Dashboard/GetDashboardData",
+    "Method": "GetBasicDashboardData",
+    "RelativePath": "api/Dashboard/GetBasicDashboardData",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -186,7 +186,7 @@
   },
   {
     "ContainingType": "API.Controller.SellController",
-    "Method": "CreateSellAsync",
+    "Method": "Create",
     "RelativePath": "api/Sell",
     "HttpMethod": "POST",
     "IsController": true,
@@ -198,6 +198,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.SellController",
+    "Method": "GetList",
+    "RelativePath": "api/Sell",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {
@@ -214,6 +224,32 @@
         "IsRequired": false
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.StockController",
+    "Method": "Add",
+    "RelativePath": "api/Stock",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "models",
+        "Type": "System.Collections.Generic.List\u00601[[DTO.Models.AddModel\u002BStock, DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.StockController",
+    "Method": "GetList",
+    "RelativePath": "api/Stock",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

@@ -9,6 +9,7 @@
             public required decimal Price { get; set; }
             public required string Barcode { get; set; }
             public required string Category { get; set; }
+            public int Quantity { get; set; }
             public List<PriceHistoryDetail> PriceHistories { get; set; } = null!;
         }
 

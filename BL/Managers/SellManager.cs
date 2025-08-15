@@ -63,5 +63,17 @@ namespace BL.Managers
                 (start == null || x.CreatedAt >= start) &&
                 (end == null || x.CreatedAt <= end)).Sum(x => x.TotalAmount);
         }
+
+        public List<ListModel.Sell> GetList()
+        {
+            return _sellDal.FullAttached().Select(x => new ListModel.Sell
+            {
+                SellCode = x.SellCode,
+                TotalAmount = x.TotalAmount,
+                NetAmount = x.NetAmount,
+                ProductCount = x.Items.Count,
+                Date = x.CreatedAt,
+            }).ToList();
+        }
     }
 }

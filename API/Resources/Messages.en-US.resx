@@ -183,4 +183,40 @@
   <data name="CategoryNameUpdatedSuccessfully" xml:space="preserve">
     <value>Category name updated successfully.</value>
   </data>
+  <data name="ProductOutOfStock" xml:space="preserve">
+    <value>The selected product is currently out of stock.</value>
+  </data>
+  <data name="InvalidQuantity" xml:space="preserve">
+    <value>Please enter a valid product quantity.</value>
+  </data>
+  <data name="InsufficientProductQuantity" xml:space="preserve">
+    <value>The requested quantity is not available in stock.</value>
+  </data>
+  <data name="StockUpdateMessage" xml:space="preserve">
+    <value>Stock has been successfully {0}.</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Added</value>
+  </data>
+  <data name="Reduced" xml:space="preserve">
+    <value>Reduced</value>
+  </data>
+  <data name="InvalidStockType" xml:space="preserve">
+    <value>Invalid stock type.</value>
+  </data>
+  <data name="DuplicateProductNotAllowed" xml:space="preserve">
+    <value>The same product cannot be added more than once in the list.</value>
+  </data>
+  <data name="EmptyStockList" xml:space="preserve">
+    <value>Action could not be completed: The stock list is empty or invalid.</value>
+  </data>
+  <data name="InsufficientStock" xml:space="preserve">
+    <value>{1} operation could not be performed for product {0}: Insufficient stock.</value>
+  </data>
+  <data name="Adding" xml:space="preserve">
+    <value>Adding</value>
+  </data>
+  <data name="Reducing" xml:space="preserve">
+    <value>Reducing</value>
+  </data>
 </root>

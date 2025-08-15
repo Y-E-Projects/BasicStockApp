@@ -13,26 +13,39 @@ namespace API.Controller
         private readonly IProductService _productService;
         private readonly ISellService _sellService;
         private readonly ISellItemService _sellItemService;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public SellController(
             IProductService productService,
             ISellService sellService,
             ISellItemService sellItemService,
-            IResourceLocalizer localizer)
+            IResourceLocalizer localizer,
+            IServiceScopeFactory serviceScopeFactory)
         {
             _productService = productService;
             _sellService = sellService;
             _sellItemService = sellItemService;
             _localizer = localizer;
+            _serviceScopeFactory = serviceScopeFactory;
         }
 
         [HttpPost]
-        public IActionResult CreateSellAsync([FromBody] AddModel.CreateSellRequest request)
+        public IActionResult Create(AddModel.CreateSellRequest request)
         {
             if (request == null || request.Items == null || !request.Items.Any())
                 return BadRequest(new
                 {
                     message = _localizer.Localize("EmptySellItemList"),
+                });
+
+            var duplicateProduct = request.Items
+                .GroupBy(i => i.ProductKey)
+                .FirstOrDefault(g => g.Count() > 1);
+
+            if (duplicateProduct != null)
+                return BadRequest(new
+                {
+                    message = _localizer.Localize("DuplicateProductNotAllowed"),
                 });
 
             try
@@ -54,6 +67,24 @@ namespace API.Controller
                             message = _localizer.Localize("ProductNotFound")
                         });
 
+                    if (product.Quantity <= 0)
+                        return BadRequest(new
+                        {
+                            message = _localizer.Localize("ProductOutOfStock"),
+                        });
+
+                    if (item.Quantity <= 0)
+                        return BadRequest(new
+                        {
+                            message = _localizer.Localize("InvalidQuantity"),
+                        });
+
+                    if (product.Quantity < item.Quantity)
+                        return BadRequest(new
+                        {
+                            message = _localizer.Localize("InsufficientProductQuantity"),
+                        });
+
                     var lineTotal = product.Price * item.Quantity;
                     totalAmount += lineTotal;
 
@@ -67,9 +98,20 @@ namespace API.Controller
                 }
 
                 sell.TotalAmount = totalAmount;
-                sell.NetAmount = totalAmount; 
+                sell.NetAmount = totalAmount;
 
                 _sellService.Add(sell);
+
+                Task.Run(() =>
+                {
+                    using var scope = _serviceScopeFactory.CreateScope();
+                    var productService = scope.ServiceProvider.GetRequiredService<IProductService>();
+
+                    foreach (var item in sell.Items)
+                    {
+                        productService.DecreaseQuantity(item.ProductKey, item.Quantity);
+                    }
+                });
 
                 return Ok(new
                 {
@@ -87,6 +129,13 @@ namespace API.Controller
             }
         }
 
+        [HttpGet]
+        public IActionResult GetList()
+        {
+            var sells = _sellService.GetList();
+            return Ok(sells);
+        }
+
         [HttpGet("GetWithCode")]
         public IActionResult GetSellByCode(string code)
         {
@@ -95,7 +144,7 @@ namespace API.Controller
                 {
                     message = _localizer.Localize("SellCodeCannotBeEmpty")
                 });
-            
+
             var value = _sellService.GetByCode(code);
 
             if (value == null)

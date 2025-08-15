@@ -183,4 +183,40 @@
   <data name="CategoryNameUpdatedSuccessfully" xml:space="preserve">
     <value>Kategori adı başarıyla güncellendi.</value>
   </data>
+  <data name="ProductOutOfStock" xml:space="preserve">
+    <value>Seçtiğiniz ürün şu anda stokta bulunmamaktadır.</value>
+  </data>
+  <data name="InvalidQuantity" xml:space="preserve">
+    <value>Geçerli bir ürün miktarı giriniz.</value>
+  </data>
+  <data name="InsufficientProductQuantity" xml:space="preserve">
+    <value>Talep ettiğiniz miktar stoklarımızda mevcut değildir.</value>
+  </data>
+  <data name="StockUpdateMessage" xml:space="preserve">
+    <value>Stok başarıyla {0}.</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Eklendi</value>
+  </data>
+  <data name="Reduced" xml:space="preserve">
+    <value>Azaltıldı</value>
+  </data>
+  <data name="InvalidStockType" xml:space="preserve">
+    <value>Geçersiz stok tipi.</value>
+  </data>
+  <data name="DuplicateProductNotAllowed" xml:space="preserve">
+    <value>Aynı ürün listede birden fazla kez eklenemez.</value>
+  </data>
+  <data name="EmptyStockList" xml:space="preserve">
+    <value>Aksiyon gerçekleştirilemedi: Stok listesi boş veya geçersiz.</value>
+  </data>
+  <data name="InsufficientStock" xml:space="preserve">
+    <value>{0} ürünü için {1} işlemi yapılamadı: Ürün stoğu yetersiz.</value>
+  </data>
+  <data name="Adding" xml:space="preserve">
+    <value>Ekleme</value>
+  </data>
+  <data name="Reducing" xml:space="preserve">
+    <value>Azaltma</value>
+  </data>
 </root>

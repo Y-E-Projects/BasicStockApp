@@ -1,8 +1,10 @@
 using DAL.Abstract;
 using DAL.Context;
 using DAL.Generics;
+using DTO.Models;
 using EL.Concrete;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace DAL.EntityFramework
 {
@@ -41,6 +43,62 @@ namespace DAL.EntityFramework
                 .ToList();
 
             return values;
+        }
+
+        public void DecreaseQuantity(Guid productKey, int quantity)
+        {
+            var value = _context.Products
+                .FirstOrDefault(p => p.Key == productKey);
+
+            if (value == null)
+                return;
+
+            value.Quantity -= quantity;
+            _context.Products.Update(value);
+            _context.SaveChanges();
+        }
+
+        public void IncreaseQuantity(Guid productKey, int quantity)
+        {
+            var value = _context.Products
+                .FirstOrDefault(p => p.Key == productKey);
+
+            if (value == null)
+                return;
+
+            value.Quantity += quantity;
+            _context.Products.Update(value);
+            _context.SaveChanges();
+        }
+
+        public List<Product> GetByKeys(List<Guid> productKeys)
+        {
+            return _context.Products
+                .Where(p => productKeys.Contains(p.Key))
+                .ToList();
+        }
+
+        public void UpdateQuantities(List<AddModel.Stock> models)
+        {
+            var productKeys = models.Select(m => m.ProductKey).ToList();
+            var products = _context.Products
+                .Where(p => productKeys.Contains(p.Key))
+                .ToList();
+
+            foreach (var model in models)
+            {
+                var product = products.FirstOrDefault(p => p.Key == model.ProductKey);
+                if (product == null)
+                    continue;
+
+                if (model.Type == StockHistoryType.Adding)
+                    product.Quantity += model.Quantity;
+                else
+                    product.Quantity -= model.Quantity;
+            }
+
+            _context.Products.UpdateRange(products);
+            _context.SaveChanges();
         }
     }
 }

@@ -1,0 +1,139 @@
+1 - https://github.com/OzeryOt/BasicStockApp/releases kısmından Publish.zip dosyasını indirin.
+2 - İndirdiğiniz dosyayı istediğiniz bir klasöre çıkartın. (Örn: C:\Publish)
+3 - Windows arama yerine "Windows özelliklerini aç veya kapat" şeklinde arama yapın ve açın
+4 - IIS (Internet Information Services) özelliklerini açınız.
+5 - https://dev.mysql.com/downloads/installer/ linkinden (mysql-installer-community-x.x.x.x.msi) olan sürümü indirin. (x: İndirdiğiniz zamandaki sürüme göre değişebilir.)
+6 - https://www.youtube.com/watch?v=v8i2NgiM5pE&ab_channel=GeekyScript ilgili videoyu izleyerek kurulumu yapınız. (ACCOUNTS AND ROLES KISMINDA EK KULLANICI TANIMLAASI YAPABİLİRSİNİZ YOKSA VERİTANANI İÇİN ROOT BİLGİSİNİ GİRMENİZ GEREKMEKTEDİR.)
+7 - Kurulumlar tamamlandıktan sonra bilgisayarınızı yeniden başlatınız.
+8 - Windows arama yerine "iis" yazıp "Internet Information Service (IIS) Yöneticisi" uygulamasını açınız.
+9 - Sol taraftaki okları genişletiniz. "Siteler" yazan alana sağ tıklayıp "Web sitesi ekle" seçeneğine tıklayınız.
+10 - Açılan ekrandan sites adını belirleyiniz. (BOŞLUK OLMAMASI GEREKİYOR, SADECE İNGİLİZCE HARFLER OLABİLİR.)
+11 - Fiziksel yol seçeneğinden 2. Aşamada belirlediğimiz yolu seçiyoruz.
+12 - Belirlediğimiz yolda sağ tıklayıp özellikler yapıp "Güvenlik" kısmında "IIS_IUSRS" kullanıcı yoksa eklemesini yapıyoruz.
+13 - Klasöre ilgili kullanıcıyı ekledikten sonra web sitesi ekleme alanında "Tür" seçeneğinde "https" seçeneğini seçiyoruz.
+14 - IP Adres tanımlaması yapmamıza gerek yoktur. Tamam deyip kaydediyoruz.
+15 - 2. Aşamada belirlediğimiz yola gidip appsettings.json dosyasını açıyoruz.
+16 - Açılan dosyada "DefaultConnection" alanındaki "Database" in değerini İngilizce harflerden ve boşluk kullanmadan Veritabanı adını belirliyoruz. 
+17 - "User" ve "Password" alanlarını eğer MySQL kurulum aşamasında kullanıcı oluşturduysanız ilgili kullanıcı bilgisini giriniz eğer kullanıcı oluşturmadıysanız "User" değerine "root" yazın, "Password" alanına kurulum yaparken girdiğiniz root şifresini giriniz.
+18 - Eğer yanıtların Türkçe olmasını isterseniz "DefaultCulture" değerini "tr-TR" yapınız eğer İngilizce olmasını isterseniz "en-US" olarak bırakınız ve dosyada yaptığınız değişiklikleri kayıt ediniz.
+19 - API.exe adındaki uygulamayı çalıştırınız ve :
+
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE DATABASE `DenemeStockAppDb`
+info: Microsoft.EntityFrameworkCore.Migrations[20411]
+      Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT GET_LOCK('__EFMigrationsLock',-1);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (33ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE IF NOT EXISTS `__EFMigrationsHistory` (
+          `MigrationId` varchar(150) NOT NULL,
+          `ProductVersion` varchar(32) NOT NULL,
+          PRIMARY KEY (`MigrationId`)
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='DenemeStockAppDb' AND TABLE_NAME='__EFMigrationsHistory';
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT `MigrationId`, `ProductVersion`
+      FROM `__EFMigrationsHistory`
+      ORDER BY `MigrationId`;
+info: Microsoft.EntityFrameworkCore.Migrations[20402]
+      Applying migration '20250812141150_mig1'.
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE `Categories` (
+          `Key` char(36) NOT NULL,
+          `Name` longtext NOT NULL,
+          `IsVisible` tinyint(1) NOT NULL,
+          `CreatedAt` datetime(6) NOT NULL,
+          PRIMARY KEY (`Key`)
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (24ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE `Sells` (
+          `Key` char(36) NOT NULL,
+          `SellCode` longtext NOT NULL,
+          `TotalAmount` decimal(18,2) NOT NULL,
+          `TotalDiscount` decimal(18,2) NOT NULL,
+          `NetAmount` decimal(18,2) NOT NULL,
+          `CreatedAt` datetime(6) NOT NULL,
+          PRIMARY KEY (`Key`)
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (39ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE `Products` (
+          `Key` char(36) NOT NULL,
+          `Name` longtext NOT NULL,
+          `Price` decimal(18,2) NOT NULL,
+          `Barcode` longtext NOT NULL,
+          `CategoryKey` char(36) NOT NULL,
+          `CreatedAt` datetime(6) NOT NULL,
+          PRIMARY KEY (`Key`),
+          CONSTRAINT `FK_Products_Categories_CategoryKey` FOREIGN KEY (`CategoryKey`) REFERENCES `Categories` (`Key`) ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (34ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE `PriceHistories` (
+          `Key` char(36) NOT NULL,
+          `BackPrice` decimal(18,2) NOT NULL,
+          `NewPrice` decimal(18,2) NOT NULL,
+          `ProductKey` char(36) NOT NULL,
+          `CreatedAt` datetime(6) NOT NULL,
+          PRIMARY KEY (`Key`),
+          CONSTRAINT `FK_PriceHistories_Products_ProductKey` FOREIGN KEY (`ProductKey`) REFERENCES `Products` (`Key`) ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (41ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE `SellItems` (
+          `Key` char(36) NOT NULL,
+          `SellKey` char(36) NOT NULL,
+          `ProductKey` char(36) NOT NULL,
+          `UnitPrice` decimal(18,2) NOT NULL,
+          `Quantity` int NOT NULL,
+          `LineTotal` decimal(18,2) NOT NULL,
+          `CreatedAt` datetime(6) NOT NULL,
+          PRIMARY KEY (`Key`),
+          CONSTRAINT `FK_SellItems_Products_ProductKey` FOREIGN KEY (`ProductKey`) REFERENCES `Products` (`Key`) ON DELETE CASCADE,
+          CONSTRAINT `FK_SellItems_Sells_SellKey` FOREIGN KEY (`SellKey`) REFERENCES `Sells` (`Key`) ON DELETE CASCADE
+      );
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX `IX_PriceHistories_ProductKey` ON `PriceHistories` (`ProductKey`);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (31ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX `IX_Products_CategoryKey` ON `Products` (`CategoryKey`);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (21ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX `IX_SellItems_ProductKey` ON `SellItems` (`ProductKey`);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE INDEX `IX_SellItems_SellKey` ON `SellItems` (`SellKey`);
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      INSERT INTO `__EFMigrationsHistory` (`MigrationId`, `ProductVersion`)
+      VALUES ('20250812141150_mig1', '9.0.8');
+info: Microsoft.EntityFrameworkCore.Database.Command[20101]
+      Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      SELECT RELEASE_LOCK('__EFMigrationsLock');
+warn: Microsoft.AspNetCore.StaticFiles.StaticFileMiddleware[16]
+      The WebRootPath was not found: C:\Users\X\Desktop\Projects\BasicStockApp\Published\API\wwwroot. Static files may be unavailable.
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5000
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: "DOSYA KONUMU OLACAK"
+
+çıktısını alırsanız veritabanı kurulumunuz tamamlanmıştır.
+
+20 - Kurulum tamamlandıktan sonra https://localhost sayfasını açınız ve testlerinizi yapınız.
+
+EĞER UYGULAMA CEVAP DİLİNİ VEYA VERİTABANINI DEĞİŞTİRİRSENİZ API.exe DOSYASINI 1 KERE YENİDEN ÇALIŞTIRIN VE IIS DEN WEB SİTENİZİ DE YENİDEN BAŞLATIN VE YENİ DB BAĞLATINIZ GERÇEKLEŞTİRİLİP, UYGULAMA DİLİNİZ DEĞİŞTİRİLMİŞ OLACAKTIR.
+
+SADECE UYGULAMA CEVAP DİLİNİ DEĞİŞTİRDİĞİNİZDE IIS DEN 2 3 KERE YENİDEN BAŞLAT YAPARSANIZ CEVAP DİLİNİZ DEĞİŞMİŞ OLACAKTIR.

@@ -2,7 +2,6 @@ using BL.Abstract;
 using DAL.Abstract;
 using DTO.Models;
 using EL.Concrete;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BL.Managers
 {
@@ -42,6 +41,7 @@ namespace BL.Managers
                 Price = value.Price,
                 Barcode = value.Barcode,
                 Category = value.Category.Name,
+                Quantity = value.Quantity,
                 PriceHistories = value.PriceHistories.OrderBy(x => x.CreatedAt).Select(ph => new DetailModel.PriceHistoryDetail
                 {
                     BackPrice = ph.BackPrice,
@@ -66,7 +66,8 @@ namespace BL.Managers
                 Name = p.Name,
                 Price = p.Price,
                 Barcode = p.Barcode,
-                Category = p.Category.Name
+                Category = p.Category.Name,
+                Quantity = p.Quantity,
             }).ToList();
         }
 
@@ -85,6 +86,7 @@ namespace BL.Managers
                 Price = value.Price,
                 Barcode = value.Barcode,
                 Category = value.Category.Name,
+                Quantity = value.Quantity,
                 PriceHistories = value.PriceHistories.OrderBy(x => x.CreatedAt).Select(ph => new DetailModel.PriceHistoryDetail
                 {
                     BackPrice = ph.BackPrice,
@@ -107,8 +109,29 @@ namespace BL.Managers
                 Name = p.Name,
                 Price = p.Price,
                 Barcode = p.Barcode,
-                Category = p.Category.Name
+                Category = p.Category.Name,
+                Quantity = p.Quantity,
             }).ToList();
+        }
+
+        public void DecreaseQuantity(Guid productKey, int quantity)
+        {
+            _productDal.DecreaseQuantity(productKey, quantity);
+        }
+
+        public void IncreaseQuantity(Guid productKey, int quantity)
+        {
+            _productDal.IncreaseQuantity(productKey, quantity);
+        }
+
+        public List<Product> GetByKeys(List<Guid> productKeys)
+        {
+            return _productDal.GetByKeys(productKeys);
+        }
+
+        public void UpdateQuantities(List<AddModel.Stock> models)
+        {
+            _productDal.UpdateQuantities(models);
         }
     }
 }

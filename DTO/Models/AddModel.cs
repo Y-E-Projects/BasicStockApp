@@ -1,4 +1,5 @@
-﻿using EL.Concrete.Base;
+﻿using EL.Concrete;
+using EL.Concrete.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace DTO.Models
@@ -16,7 +17,16 @@ namespace DTO.Models
             public required string Name { get; set; }
             public decimal Price { get; set; }
             public required string Barcode { get; set; }
+            public int Quantity { get; set; }
             public Guid CategoryKey { get; set; }
+        }
+
+        public class Stock
+        {
+            public StockHistoryType Type { get; set; }
+            public Guid ProductKey { get; set; }
+            public int Quantity { get; set; }
+            public string? Note { get; set; }
         }
 
         public class CreateSellRequest
