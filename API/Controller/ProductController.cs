@@ -14,17 +14,20 @@ namespace API.Controller
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IPriceHistoryService _priceHistoryService;
+        private readonly ISupplierService _supplierService;
 
         public ProductController(
             IProductService productService,
             ICategoryService categoryService,
             IPriceHistoryService priceHistoryService,
-            IResourceLocalizer localizer)
+            IResourceLocalizer localizer,
+            ISupplierService supplierService)
         {
             _productService = productService;
             _categoryService = categoryService;
             _priceHistoryService = priceHistoryService;
             _localizer = localizer;
+            _supplierService = supplierService;
         }
 
         [HttpGet]
@@ -61,7 +64,20 @@ namespace API.Controller
                 Price = model.Price,
                 Barcode = model.Barcode,
                 CategoryKey = model.CategoryKey,
+                Quantity = model.Quantity,
+                MinimumQuantity = model.MinimumQuantity,
             };
+
+            if (model.SupplierKey != null && model.SupplierKey != Guid.Empty)
+            {
+                if (_supplierService.GetByKey(model.SupplierKey.Value) == null)
+                    return BadRequest(new
+                    {
+                        message = _localizer.Localize("InvalidSupplier"),
+                    });
+
+                newProduct.SupplierKey = model.SupplierKey;
+            }
 
             _productService.Add(newProduct);
             return Ok(new
@@ -125,6 +141,27 @@ namespace API.Controller
             });
         }
 
+        [HttpPatch("UpdateName")]
+        public IActionResult UpdateName(UpdateModel.ProductName model)
+        {
+            var product = _productService.GetByKey(model.ProductKey);
+            if (product == null)
+                return NotFound(new
+                {
+                    message = _localizer.Localize("ProductNotFound"),
+                });
+
+            decimal backPrice = product.Price;
+
+            product.Name = model.Name;
+            _productService.Update(product);
+
+            return Ok(new
+            {
+                message = _localizer.Localize("ProductNameUpdatedSuccessfully"),
+            });
+        }
+
         [HttpGet("GetListWithCategory")]
         public IActionResult GetProductsWithCategory(Guid key)
         {
@@ -132,6 +169,19 @@ namespace API.Controller
                 return BadRequest(new
                 {
                     message = _localizer.Localize("CategoryNotFound"),
+                });
+
+            var products = _productService.GetListWithCategory(key);
+            return Ok(products);
+        }
+
+        [HttpGet("GetProductsWithSupplier")]
+        public IActionResult GetProductsWithSupplier(Guid key)
+        {
+            if (_supplierService.GetByKey(key) == null)
+                return BadRequest(new
+                {
+                    message = _localizer.Localize("SupplierNotFound"),
                 });
 
             var products = _productService.GetListWithCategory(key);

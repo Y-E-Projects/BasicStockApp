@@ -17,5 +17,7 @@ namespace EL.Concrete
 
         [Precision(18, 2)]
         public decimal LineTotal { get; set; } // UnitPrice * Quantity
+
+        public List<ReturnHistory> ReturnHistories { get; set; } = new();
     }
 }

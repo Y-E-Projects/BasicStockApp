@@ -1,6 +1,4 @@
 ﻿using EL.Concrete;
-using EL.Concrete.Base;
-using Microsoft.EntityFrameworkCore;
 
 namespace DTO.Models
 {
@@ -18,7 +16,9 @@ namespace DTO.Models
             public decimal Price { get; set; }
             public required string Barcode { get; set; }
             public int Quantity { get; set; }
+            public int MinimumQuantity { get; set; }
             public Guid CategoryKey { get; set; }
+            public Guid? SupplierKey { get; set; }
         }
 
         public class Stock
@@ -38,6 +38,23 @@ namespace DTO.Models
         {
             public Guid ProductKey { get; set; }
             public int Quantity { get; set; }
+        }
+
+        public class ReturnSellItemRequest
+        {
+            public required string SellCode { get; set; }
+            public Guid ProductKey { get; set; }
+            public int Quantity { get; set; }
+            public string? ReturnNote { get; set; }
+        }
+
+        public class Supplier
+        {
+            public required string Name { get; set; }
+            public required string ContactName { get; set; }
+            public required string Phone { get; set; }
+            public required string Email { get; set; }
+            public required string Address { get; set; }
         }
     }
 }

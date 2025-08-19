@@ -26,112 +26,22 @@ namespace BL.Managers
 
         public bool CheckBarcodeExists(string barcode) => _productDal.GetAll().Any(p => p.Barcode == barcode);
 
-        public DetailModel.Product? GetWithBarcode(string barcode)
-        {
-            var value = _productDal.CategoryAndPriceAttached()
-                .Where(p => p.Barcode == barcode)
-                .FirstOrDefault();
+        public DetailModel.Product? GetDetailWithKey(Guid key) => _productDal.GetDetailWithKey(key);
 
-            if (value == null) return null;
+        public DetailModel.Product? GetWithBarcode(string barcode) => _productDal.GetDetailWithBarcode(barcode);
 
-            return new DetailModel.Product
-            {
-                Key = value.Key,
-                Name = value.Name,
-                Price = value.Price,
-                Barcode = value.Barcode,
-                Category = value.Category.Name,
-                Quantity = value.Quantity,
-                PriceHistories = value.PriceHistories.OrderBy(x => x.CreatedAt).Select(ph => new DetailModel.PriceHistoryDetail
-                {
-                    BackPrice = ph.BackPrice,
-                    NewPrice = ph.NewPrice,
-                    Date = ph.CreatedAt
-                }).ToList()
-            };
-        }
+        public List<ListModel.Product> GetListWithCategory(Guid categoryKey) => _productDal.GetListWithCategory(categoryKey);
 
-        public List<ListModel.Product> GetListWithCategory(Guid categoryKey)
-        {
-            var products = _productDal.CategoryAttached()
-                .Where(p => p.CategoryKey == categoryKey)
-                .ToList();
+        public List<ListModel.Product> GetListWithSupplier(Guid supplierKey) => _productDal.GetListWithSupplier(supplierKey);
 
-            if (products == null || !products.Any())
-                return new List<ListModel.Product>();
+        public List<ListModel.Product> GetList() => _productDal.GetList();
 
-            return products.Select(p => new ListModel.Product
-            {
-                Key = p.Key,
-                Name = p.Name,
-                Price = p.Price,
-                Barcode = p.Barcode,
-                Category = p.Category.Name,
-                Quantity = p.Quantity,
-            }).ToList();
-        }
+        public void DecreaseQuantity(Guid productKey, int quantity) => _productDal.DecreaseQuantity(productKey, quantity);
 
-        public DetailModel.Product? GetDetailWithKey(Guid key)
-        {
-            var value = _productDal.CategoryAndPriceAttached()
-                .Where(p => p.Key == key)
-                .FirstOrDefault();
+        public void IncreaseQuantity(Guid productKey, int quantity) => _productDal.IncreaseQuantity(productKey, quantity);
 
-            if (value == null) return null;
+        public List<Product> GetByKeys(List<Guid> productKeys) => _productDal.GetByKeys(productKeys);
 
-            return new DetailModel.Product
-            {
-                Key = value.Key,
-                Name = value.Name,
-                Price = value.Price,
-                Barcode = value.Barcode,
-                Category = value.Category.Name,
-                Quantity = value.Quantity,
-                PriceHistories = value.PriceHistories.OrderBy(x => x.CreatedAt).Select(ph => new DetailModel.PriceHistoryDetail
-                {
-                    BackPrice = ph.BackPrice,
-                    NewPrice = ph.NewPrice,
-                    Date = ph.CreatedAt
-                }).ToList()
-            };
-        }
-
-        public List<ListModel.Product> GetList()
-        {
-            var products = _productDal.CategoryAttached().ToList();
-
-            if (products == null || !products.Any())
-                return new List<ListModel.Product>();
-
-            return products.Select(p => new ListModel.Product
-            {
-                Key = p.Key,
-                Name = p.Name,
-                Price = p.Price,
-                Barcode = p.Barcode,
-                Category = p.Category.Name,
-                Quantity = p.Quantity,
-            }).ToList();
-        }
-
-        public void DecreaseQuantity(Guid productKey, int quantity)
-        {
-            _productDal.DecreaseQuantity(productKey, quantity);
-        }
-
-        public void IncreaseQuantity(Guid productKey, int quantity)
-        {
-            _productDal.IncreaseQuantity(productKey, quantity);
-        }
-
-        public List<Product> GetByKeys(List<Guid> productKeys)
-        {
-            return _productDal.GetByKeys(productKeys);
-        }
-
-        public void UpdateQuantities(List<AddModel.Stock> models)
-        {
-            _productDal.UpdateQuantities(models);
-        }
+        public void UpdateQuantities(List<AddModel.Stock> models) => _productDal.UpdateQuantities(models);
     }
 }

@@ -24,31 +24,7 @@ namespace BL.Managers
 
         public void Update(Sell entity) => _sellDal.Update(entity);
 
-        public DetailModel.Sell? GetByCode(string code)
-        {
-            var value = _sellDal.FullAttached().Where(x => x.SellCode == code).First();
-
-            if (value == null)
-                return null;
-
-            return new DetailModel.Sell
-            {
-                Key = value.Key,
-                SellCode = value.SellCode,
-                SellDate = value.CreatedAt,
-                TotalAmount = value.TotalAmount,
-                NetAmount = value.NetAmount,
-                Items = value.Items.Select(item => new DetailModel.SellItemDetail
-                {
-                    Key = item.Key,
-                    ProductKey = item.ProductKey,
-                    ProductName = item.Product.Name,
-                    UnitPrice = item.UnitPrice,
-                    Quantity = item.Quantity,
-                    LineTotal = item.LineTotal
-                }).ToList(),
-            };
-        }
+        public DetailModel.Sell? GetDetailWithCode(string code) => _sellDal.GetDetailWithCode(code);
 
         public int DashboardCount(DateTime? start = null, DateTime? end = null)
         {

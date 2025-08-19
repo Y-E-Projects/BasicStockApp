@@ -13,5 +13,10 @@ namespace DAL.Abstract
         void IncreaseQuantity(Guid productKey, int quantity);
         List<Product> GetByKeys(List<Guid> productKeys);
         void UpdateQuantities(List<AddModel.Stock> models);
+        List<ListModel.Product> GetListWithCategory(Guid categoryKey);
+        List<ListModel.Product> GetListWithSupplier(Guid supplierKey);
+        DetailModel.Product? GetDetailWithKey(Guid key);
+        DetailModel.Product? GetDetailWithBarcode(string barcode);
+        List<ListModel.Product> GetList();
     }
 }

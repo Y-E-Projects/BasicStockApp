@@ -154,6 +154,22 @@
   },
   {
     "ContainingType": "API.Controller.ProductController",
+    "Method": "GetProductsWithSupplier",
+    "RelativePath": "api/Product/GetProductsWithSupplier",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.ProductController",
     "Method": "GetWithBarcode",
     "RelativePath": "api/Product/GetWithBarcode",
     "HttpMethod": "GET",
@@ -164,6 +180,22 @@
         "Name": "barcode",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.ProductController",
+    "Method": "UpdateName",
+    "RelativePath": "api/Product/UpdateName",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DTO.Models.UpdateModel\u002BProductName",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -227,6 +259,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "API.Controller.SellController",
+    "Method": "ReturnSell",
+    "RelativePath": "api/Sell/ReturnSell",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "models",
+        "Type": "System.Collections.Generic.List\u00601[[DTO.Models.AddModel\u002BReturnSellItemRequest, DTO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "API.Controller.StockController",
     "Method": "Add",
     "RelativePath": "api/Stock",
@@ -250,6 +298,32 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.SupplierController",
+    "Method": "GetList",
+    "RelativePath": "api/Supplier",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.SupplierController",
+    "Method": "Create",
+    "RelativePath": "api/Supplier",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DTO.Models.AddModel\u002BSupplier",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]

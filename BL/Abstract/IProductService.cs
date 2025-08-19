@@ -15,5 +15,6 @@ namespace BL.Abstract
         void IncreaseQuantity(Guid productKey, int quantity);
         List<Product> GetByKeys(List<Guid> productKeys);
         void UpdateQuantities(List<AddModel.Stock> models);
+        List<ListModel.Product> GetListWithSupplier(Guid supplierKey);
     }
 }

@@ -10,8 +10,23 @@
 
         public class ProductPrice
         {
-            public decimal NewPrice { get; set; }
             public Guid ProductKey { get; set; }
+            public decimal NewPrice { get; set; }
+        }
+
+        public class ProductName
+        {
+            public Guid ProductKey { get; set; }
+            public required string Name { get; set; }
+        }
+
+        public class Product
+        {
+            public Guid ProductKey { get; set; }
+            public Guid? SupplierKey { get; set; }
+            public Guid CategoryKey { get; set; }
+            public int MinimumQuantity { get; set; }
+            public required string Barcode { get; set; }
         }
     }
 }

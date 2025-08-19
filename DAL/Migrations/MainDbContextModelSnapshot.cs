@@ -83,6 +83,9 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int>("MinimumQuantity")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -94,11 +97,50 @@ namespace DAL.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("SupplierKey")
+                        .HasColumnType("char(36)");
+
                     b.HasKey("Key");
 
                     b.HasIndex("CategoryKey");
 
+                    b.HasIndex("SupplierKey");
+
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("EL.Concrete.ReturnHistory", b =>
+                {
+                    b.Property<Guid>("Key")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("ProductKey")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("SellItemKey")
+                        .HasColumnType("char(36)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Key");
+
+                    b.HasIndex("ProductKey");
+
+                    b.HasIndex("SellItemKey");
+
+                    b.ToTable("ReturnHistories");
                 });
 
             modelBuilder.Entity("EL.Concrete.Sell", b =>
@@ -194,6 +236,40 @@ namespace DAL.Migrations
                     b.ToTable("StockHistories");
                 });
 
+            modelBuilder.Entity("EL.Concrete.Supplier", b =>
+                {
+                    b.Property<Guid>("Key")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("ContactName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Key");
+
+                    b.ToTable("Suppliers");
+                });
+
             modelBuilder.Entity("EL.Concrete.PriceHistory", b =>
                 {
                     b.HasOne("EL.Concrete.Product", "Product")
@@ -213,7 +289,32 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("EL.Concrete.Supplier", "Supplier")
+                        .WithMany("Products")
+                        .HasForeignKey("SupplierKey");
+
                     b.Navigation("Category");
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("EL.Concrete.ReturnHistory", b =>
+                {
+                    b.HasOne("EL.Concrete.Product", "Product")
+                        .WithMany("ReturnHistories")
+                        .HasForeignKey("ProductKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EL.Concrete.SellItem", "SellItem")
+                        .WithMany("ReturnHistories")
+                        .HasForeignKey("SellItemKey")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("SellItem");
                 });
 
             modelBuilder.Entity("EL.Concrete.SellItem", b =>
@@ -255,6 +356,8 @@ namespace DAL.Migrations
                 {
                     b.Navigation("PriceHistories");
 
+                    b.Navigation("ReturnHistories");
+
                     b.Navigation("SellItems");
 
                     b.Navigation("StockHistories");
@@ -263,6 +366,16 @@ namespace DAL.Migrations
             modelBuilder.Entity("EL.Concrete.Sell", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("EL.Concrete.SellItem", b =>
+                {
+                    b.Navigation("ReturnHistories");
+                });
+
+            modelBuilder.Entity("EL.Concrete.Supplier", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

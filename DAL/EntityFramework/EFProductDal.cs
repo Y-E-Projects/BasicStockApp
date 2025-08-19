@@ -3,6 +3,7 @@ using DAL.Context;
 using DAL.Generics;
 using DTO.Models;
 using EL.Concrete;
+using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -99,6 +100,85 @@ namespace DAL.EntityFramework
 
             _context.Products.UpdateRange(products);
             _context.SaveChanges();
+        }
+
+        public List<ListModel.Product> GetListWithCategory(Guid categoryKey)
+        {
+            return _context.Products.Where(p => p.CategoryKey == categoryKey).Select(p => new ListModel.Product
+            {
+                Key = p.Key,
+                Name = p.Name,
+                Price = p.Price,
+                Barcode = p.Barcode,
+                Category = p.Category.Name,
+                Quantity = p.Quantity,
+            }).ToList();
+        }
+
+        public List<ListModel.Product> GetListWithSupplier(Guid supplierKey)
+        {
+            return _context.Products.Where(p => p.SupplierKey == supplierKey).Select(p => new ListModel.Product
+            {
+                Key = p.Key,
+                Name = p.Name,
+                Price = p.Price,
+                Barcode = p.Barcode,
+                Category = p.Category.Name,
+                Quantity = p.Quantity,
+            }).ToList();
+        }
+
+        public DetailModel.Product? GetDetailWithKey(Guid key)
+        {
+            return _context.Products.Where(p => p.Key == key).Select(p => new DetailModel.Product
+            {
+                Key = p.Key,
+                Name = p.Name,
+                Price = p.Price,
+                Barcode = p.Barcode,
+                Category = p.Category.Name,
+                Quantity = p.Quantity,
+                PriceHistories = p.PriceHistories.OrderBy(x => x.CreatedAt).Select(ph => new DetailModel.PriceHistoryDetail
+                {
+                    BackPrice = ph.BackPrice,
+                    NewPrice = ph.NewPrice,
+                    Date = ph.CreatedAt
+                }).ToList()
+            }).FirstOrDefault();
+        }
+
+        public DetailModel.Product? GetDetailWithBarcode(string barcode)
+        {
+            return _context.Products.Where(p => p.Barcode == barcode).Select(p => new DetailModel.Product
+            {
+                Key = p.Key,
+                Name = p.Name,
+                Price = p.Price,
+                Barcode = p.Barcode,
+                Category = p.Category.Name,
+                Quantity = p.Quantity,
+                Supplier = p.Supplier != null ? p.Supplier.Name : null,
+                SupplierKey = p.SupplierKey ?? null,
+                PriceHistories = p.PriceHistories.OrderBy(x => x.CreatedAt).Select(ph => new DetailModel.PriceHistoryDetail
+                {
+                    BackPrice = ph.BackPrice,
+                    NewPrice = ph.NewPrice,
+                    Date = ph.CreatedAt
+                }).ToList()
+            }).FirstOrDefault();
+        }
+
+        public List<ListModel.Product> GetList()
+        {
+            return _context.Products.Select(p => new ListModel.Product
+            {
+                Key = p.Key,
+                Name = p.Name,
+                Price = p.Price,
+                Barcode = p.Barcode,
+                Category = p.Category.Name,
+                Quantity = p.Quantity,
+            }).ToList();
         }
     }
 }
