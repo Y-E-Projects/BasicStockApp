@@ -4,7 +4,7 @@
 
 ## 1. Download and Extract Package
 
-- Download the `Publish.zip` file from the [BasicStockApp Releases](https://github.com/OzeryOt/BasicStockApp/releases) page.  
+- Download the `API.zip` file from the [BasicStockApp Releases](https://github.com/Y-E-Projects/BasicStockApp/releases) page.
 - Extract the archive to a directory of your choice (e.g., `C:\Publish`).
 
 ---
