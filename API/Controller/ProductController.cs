@@ -30,13 +30,6 @@ namespace API.Controller
             _supplierService = supplierService;
         }
 
-        [HttpGet]
-        public IActionResult GetList()
-        {
-            var products = _productService.GetList();
-            return Ok(products);
-        }
-
         [HttpPost]
         public IActionResult Create(AddModel.Product model)
         {
@@ -87,6 +80,13 @@ namespace API.Controller
             });
         }
 
+        [HttpGet]
+        public IActionResult GetList()
+        {
+            var products = _productService.GetList();
+            return Ok(products);
+        }
+
         [HttpGet("GetDetail")]
         public IActionResult GetDetail(Guid key)
         {
@@ -111,6 +111,32 @@ namespace API.Controller
                 });
 
             return Ok(product);
+        }
+
+        [HttpGet("GetListWithCategory")]
+        public IActionResult GetProductsWithCategory(Guid key)
+        {
+            if (_categoryService.GetByKey(key) == null)
+                return BadRequest(new
+                {
+                    message = _localizer.Localize("CategoryNotFound"),
+                });
+
+            var products = _productService.GetListWithCategory(key);
+            return Ok(products);
+        }
+
+        [HttpGet("GetProductsWithSupplier")]
+        public IActionResult GetProductsWithSupplier(Guid key)
+        {
+            if (_supplierService.GetByKey(key) == null)
+                return BadRequest(new
+                {
+                    message = _localizer.Localize("SupplierNotFound"),
+                });
+
+            var products = _productService.GetListWithCategory(key);
+            return Ok(products);
         }
 
         [HttpPatch("UpdatePrice")]
@@ -162,30 +188,50 @@ namespace API.Controller
             });
         }
 
-        [HttpGet("GetListWithCategory")]
-        public IActionResult GetProductsWithCategory(Guid key)
+        [HttpPut("Update")]
+        public IActionResult Update(UpdateModel.Product model)
         {
-            if (_categoryService.GetByKey(key) == null)
-                return BadRequest(new
+            var product = _productService.GetByKey(model.Key);
+            if (product == null)
+                return NotFound(new
                 {
-                    message = _localizer.Localize("CategoryNotFound"),
+                    message = _localizer.Localize("ProductNotFound"),
                 });
 
-            var products = _productService.GetListWithCategory(key);
-            return Ok(products);
-        }
-
-        [HttpGet("GetProductsWithSupplier")]
-        public IActionResult GetProductsWithSupplier(Guid key)
-        {
-            if (_supplierService.GetByKey(key) == null)
+            if (_categoryService.GetByKey(model.CategoryKey) == null)
                 return BadRequest(new
                 {
-                    message = _localizer.Localize("SupplierNotFound"),
+                    message = _localizer.Localize("InvalidCategory"),
                 });
 
-            var products = _productService.GetListWithCategory(key);
-            return Ok(products);
+            if (_categoryService.GetByKey(model.CategoryKey).IsVisible == false)
+                return BadRequest(new
+                {
+                    message = _localizer.Localize("CategoryNotVisible"),
+                });
+
+            product.Barcode = model.Barcode;
+            product.CategoryKey = model.CategoryKey;
+            product.MinimumQuantity = model.MinimumQuantity;
+
+            if (model.SupplierKey != null && model.SupplierKey != Guid.Empty)
+            {
+                if (_supplierService.GetByKey(model.SupplierKey.Value) == null)
+                    return BadRequest(new
+                    {
+                        message = _localizer.Localize("InvalidSupplier"),
+                    });
+
+                product.SupplierKey = model.SupplierKey;
+            }
+            else
+                product.SupplierKey = null;
+
+            _productService.Update(product);
+            return Ok(new
+            {
+                message = _localizer.Localize("ProductUpdatedSuccessfully"),
+            });
         }
     }
 }

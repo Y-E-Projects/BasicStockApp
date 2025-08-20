@@ -22,7 +22,7 @@
 
         public class Product
         {
-            public Guid ProductKey { get; set; }
+            public Guid Key { get; set; }
             public Guid? SupplierKey { get; set; }
             public Guid CategoryKey { get; set; }
             public int MinimumQuantity { get; set; }

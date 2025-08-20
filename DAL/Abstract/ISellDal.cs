@@ -8,5 +8,6 @@ namespace DAL.Abstract
     {
         List<Sell> FullAttached();
         DetailModel.Sell? GetDetailWithCode(string code);
+        List<ListModel.Sell> GetList();
     }
 }

@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DAL.Abstract;
 using DAL.Context;
 using DAL.Generics;
@@ -8,22 +10,15 @@ namespace DAL.EntityFramework
 {
     public class EFSupplierDal : GenericRep<Supplier>, ISupplierDal
     {
-        public EFSupplierDal(MainDbContext context) : base(context)
+        private readonly IMapper _mapper;
+
+        public EFSupplierDal(
+            MainDbContext context, 
+            IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
-        public List<ListModel.Supplier> GetList()
-        {
-            return _context.Suppliers.Select(s => new ListModel.Supplier
-            {
-                Key = s.Key,
-                Name = s.Name,
-                Address = s.Address,
-                Email = s.Email,
-                ContactName = s.ContactName,
-                Phone = s.Phone,
-                Count = s.Products.Count,
-            }).ToList();
-        }
+        public List<ListModel.Supplier> GetList() => _context.Suppliers.ProjectTo<ListModel.Supplier>(_mapper.ConfigurationProvider).ToList();
     }
 }

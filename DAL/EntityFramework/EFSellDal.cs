@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DAL.Abstract;
 using DAL.Context;
 using DAL.Generics;
@@ -10,8 +12,13 @@ namespace DAL.EntityFramework
 {
     public class EFSellDal : GenericRep<Sell>, ISellDal
     {
-        public EFSellDal(MainDbContext context) : base(context)
+        private readonly IMapper _mapper;
+
+        public EFSellDal(
+            MainDbContext context, 
+            IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
         public List<Sell> FullAttached()
@@ -24,37 +31,18 @@ namespace DAL.EntityFramework
             return values;
         }
 
+        public List<ListModel.Sell> GetList()
+        {
+            return _context.Sells
+                .ProjectTo<ListModel.Sell>(_mapper.ConfigurationProvider)
+                .ToList();
+        }
+
         public DetailModel.Sell? GetDetailWithCode(string code)
         {
             return _context.Sells
                 .Where(s => s.SellCode == code)
-                .Select(s => new DetailModel.Sell
-                {
-                    Key = s.Key,
-                    SellCode = s.SellCode,
-                    SellDate = s.CreatedAt,
-                    TotalAmount = s.TotalAmount,
-                    NetAmount = s.NetAmount,
-
-                    Items = s.Items.Select(item => new DetailModel.SellItemDetail
-                    {
-                        Key = item.Key,
-                        ProductKey = item.ProductKey,
-                        ProductName = item.Product.Name,
-                        UnitPrice = item.UnitPrice,
-                        Quantity = item.Quantity,
-                        LineTotal = item.LineTotal
-                    }).ToList(),
-
-                    ReturnSells = s.Items.SelectMany(i => i.ReturnHistories).OrderBy(x => x.CreatedAt).Select(rs => new DetailModel.ReturnSellWithSellDetail
-                    {
-                        Key = rs.Key,
-                        Product = rs.Product.Name,
-                        Quantity = rs.Quantity,
-                        UnitPrice = rs.UnitPrice,
-                        Reason = rs.Reason,
-                    }).ToList()
-                })
+                .ProjectTo<DetailModel.Sell>(_mapper.ConfigurationProvider)
                 .FirstOrDefault();
         }
     }

@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DAL.Abstract;
 using DAL.Context;
 using DAL.Generics;
@@ -11,8 +13,13 @@ namespace DAL.EntityFramework
 {
     public class EFProductDal : GenericRep<Product>, IProductDal
     {
-        public EFProductDal(MainDbContext context) : base(context)
+        private readonly IMapper _mapper;
+
+        public EFProductDal(
+            MainDbContext context, 
+            IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
         public List<Product> CategoryAttached()
@@ -104,81 +111,32 @@ namespace DAL.EntityFramework
 
         public List<ListModel.Product> GetListWithCategory(Guid categoryKey)
         {
-            return _context.Products.Where(p => p.CategoryKey == categoryKey).Select(p => new ListModel.Product
-            {
-                Key = p.Key,
-                Name = p.Name,
-                Price = p.Price,
-                Barcode = p.Barcode,
-                Category = p.Category.Name,
-                Quantity = p.Quantity,
-            }).ToList();
+            return _context.Products.Where(p => p.CategoryKey == categoryKey)
+                .ProjectTo<ListModel.Product>(_mapper.ConfigurationProvider)
+                .ToList();
         }
 
         public List<ListModel.Product> GetListWithSupplier(Guid supplierKey)
         {
-            return _context.Products.Where(p => p.SupplierKey == supplierKey).Select(p => new ListModel.Product
-            {
-                Key = p.Key,
-                Name = p.Name,
-                Price = p.Price,
-                Barcode = p.Barcode,
-                Category = p.Category.Name,
-                Quantity = p.Quantity,
-            }).ToList();
+            return _context.Products.Where(p => p.SupplierKey == supplierKey)
+                .ProjectTo<ListModel.Product>(_mapper.ConfigurationProvider)
+                .ToList();
         }
 
         public DetailModel.Product? GetDetailWithKey(Guid key)
         {
-            return _context.Products.Where(p => p.Key == key).Select(p => new DetailModel.Product
-            {
-                Key = p.Key,
-                Name = p.Name,
-                Price = p.Price,
-                Barcode = p.Barcode,
-                Category = p.Category.Name,
-                Quantity = p.Quantity,
-                PriceHistories = p.PriceHistories.OrderBy(x => x.CreatedAt).Select(ph => new DetailModel.PriceHistoryDetail
-                {
-                    BackPrice = ph.BackPrice,
-                    NewPrice = ph.NewPrice,
-                    Date = ph.CreatedAt
-                }).ToList()
-            }).FirstOrDefault();
+            return _context.Products.Where(p => p.Key == key)
+                .ProjectTo<DetailModel.Product?>(_mapper.ConfigurationProvider)
+                .FirstOrDefault();
         }
 
         public DetailModel.Product? GetDetailWithBarcode(string barcode)
         {
-            return _context.Products.Where(p => p.Barcode == barcode).Select(p => new DetailModel.Product
-            {
-                Key = p.Key,
-                Name = p.Name,
-                Price = p.Price,
-                Barcode = p.Barcode,
-                Category = p.Category.Name,
-                Quantity = p.Quantity,
-                Supplier = p.Supplier != null ? p.Supplier.Name : null,
-                SupplierKey = p.SupplierKey ?? null,
-                PriceHistories = p.PriceHistories.OrderBy(x => x.CreatedAt).Select(ph => new DetailModel.PriceHistoryDetail
-                {
-                    BackPrice = ph.BackPrice,
-                    NewPrice = ph.NewPrice,
-                    Date = ph.CreatedAt
-                }).ToList()
-            }).FirstOrDefault();
+            return _context.Products.Where(p => p.Barcode == barcode)
+                .ProjectTo<DetailModel.Product?>(_mapper.ConfigurationProvider)
+                .FirstOrDefault();
         }
 
-        public List<ListModel.Product> GetList()
-        {
-            return _context.Products.Select(p => new ListModel.Product
-            {
-                Key = p.Key,
-                Name = p.Name,
-                Price = p.Price,
-                Barcode = p.Barcode,
-                Category = p.Category.Name,
-                Quantity = p.Quantity,
-            }).ToList();
-        }
+        public List<ListModel.Product> GetList() => _context.Products.ProjectTo<ListModel.Product>(_mapper.ConfigurationProvider).ToList();
     }
 }

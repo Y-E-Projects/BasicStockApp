@@ -252,4 +252,7 @@
   <data name="ReturnQuantityAlreadyProcessed" xml:space="preserve">
     <value>The return process could not be completed: The specified product’s return quantity has already been processed.</value>
   </data>
+  <data name="ProductUpdatedSuccessfully" xml:space="preserve">
+    <value>Product updated successfully.</value>
+  </data>
 </root>

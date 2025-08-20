@@ -1,3 +1,5 @@
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using DAL.Abstract;
 using DAL.Context;
 using DAL.Generics;
@@ -8,8 +10,13 @@ namespace DAL.EntityFramework
 {
     public class EFStockHistoryDal : GenericRep<StockHistory>, IStockHistoryDal
     {
-        public EFStockHistoryDal(MainDbContext context) : base(context)
+        private readonly IMapper _mapper;
+
+        public EFStockHistoryDal(
+            MainDbContext context, 
+            IMapper mapper) : base(context)
         {
+            _mapper = mapper;
         }
 
         public void AddRange(List<StockHistory> stockHistories)
@@ -18,16 +25,6 @@ namespace DAL.EntityFramework
             _context.SaveChanges();
         }
 
-        public List<ListModel.StockHistory> GetList()
-        {
-            return _context.StockHistories.Select(sh => new ListModel.StockHistory
-            {
-                Key = sh.Key,
-                Product = sh.Product.Name,
-                Quantity = sh.Quantity,
-                Type = sh.Type,
-                CreatedAt = sh.CreatedAt
-            }).ToList();
-        }
+        public List<ListModel.StockHistory> GetList() => _context.StockHistories.ProjectTo<ListModel.StockHistory>(_mapper.ConfigurationProvider).ToList();
     }
 }

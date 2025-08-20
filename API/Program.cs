@@ -4,6 +4,7 @@ using DAL.Context;
 using DTO.Models;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System.Globalization;
@@ -38,6 +39,11 @@ app.Run();
 void ConfigureServices(IServiceCollection services, IConfiguration config)
 {
     services.RegisterServices();
+
+    services.AddAutoMapper(cfg => 
+    { 
+
+    }, typeof(MappingProfile).Assembly);
 
     services.AddControllers();
 

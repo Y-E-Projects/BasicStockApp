@@ -13,6 +13,9 @@ namespace DTO.Models
             public required string Barcode { get; set; }
             public required string Category { get; set; }
             public int Quantity { get; set; }
+            public int MinQuantity { get; set; }
+            public int TotalSell { get; set; }
+            public int ReturnSell { get; set; }
             public string? Supplier { get; set; }
             public Guid? SupplierKey { get; set; }
             public List<PriceHistoryDetail> PriceHistories { get; set; } = null!;

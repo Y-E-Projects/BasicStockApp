@@ -2,6 +2,7 @@
 using DTO.Models;
 using EL.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 
 namespace API.Controller
 {
@@ -153,7 +154,7 @@ namespace API.Controller
             if (value == null)
                 return NotFound(new
                 {
-                    message = _localizer.Localize("SellNotFound")
+                    message = _localizer.Localize("SellNotFound"),
                 });
 
             return Ok(value);

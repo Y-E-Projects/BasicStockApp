@@ -252,4 +252,7 @@
   <data name="ReturnQuantityAlreadyProcessed" xml:space="preserve">
     <value>İade işlemi gerçekleştirilemedi: Belirtilen ürün için iade miktarı daha önce işlenmiş.</value>
   </data>
+  <data name="ProductUpdatedSuccessfully" xml:space="preserve">
+    <value>Ürün başarıyla güncellendi.</value>
+  </data>
 </root>
