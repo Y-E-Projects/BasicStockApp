@@ -13,7 +13,7 @@ You can find the full Docker deployment guide and configuration files here:
 
 ## View Turkish Version
 
-For the Turkish version of this guide, please see: [README-TR.md](README-TR.md)
+For the Turkish version of this guide, please see: [README-TR.md](readme-tr.md)
 
 ---
 
