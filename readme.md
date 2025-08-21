@@ -11,6 +11,12 @@ You can find the full Docker deployment guide and configuration files here:
 
 ---
 
+## View Turkish Version
+
+For the Turkish version of this guide, please see: [README-TR.md](README-TR.md)
+
+---
+
 ## 1. Download and Extract Package (Manual IIS Installation)
 
 * Download the `API.zip` file from the [BasicStockApp Releases](https://github.com/Y-E-Projects/BasicStockApp/releases) page.
