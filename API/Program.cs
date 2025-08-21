@@ -4,20 +4,40 @@ using DAL.Context;
 using DTO.Models;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Kestrel HTTPS ve HTTP portlarý
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5000); // HTTP
+    options.ListenAnyIP(5001, listenOptions =>
+    {
+        // Container içinde /https/aspnetapp.pfx mount edilmiþ olacak
+        listenOptions.UseHttps("/https/aspnetapp.pfx", "MySecretPassword");
+    });
+});
+
+// Environment deðiþkenlerini yükle
+builder.Configuration.AddEnvironmentVariables();
 var configuration = builder.Configuration;
 
-var connStr = configuration.GetConnectionString("DefaultConnection") ?? 
+// DB connection string
+var connStr = configuration.GetConnectionString("DefaultConnection") ??
     throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 builder.Services.AddDbContext<MainDbContext>(options =>
-    options.UseMySQL(connStr));
+    options.UseMySQL(connStr, opts =>
+    {
+        opts.EnableRetryOnFailure(
+            maxRetryCount: 100,
+            maxRetryDelay: TimeSpan.FromSeconds(10),
+            errorNumbersToAdd: null
+        );
+    }));
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddSingleton<IResourceLocalizer, ResourceLocalizer>();
@@ -26,27 +46,38 @@ ConfigureServices(builder.Services, configuration);
 
 var app = builder.Build();
 
+// Migration Retry Logic
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<MainDbContext>();
-    db.Database.Migrate();
+    var retryCount = 0;
+    var maxRetry = 20;
+    var waitTime = TimeSpan.FromSeconds(5);
+
+    while (retryCount < maxRetry)
+    {
+        try
+        {
+            db.Database.Migrate();
+            break;
+        }
+        catch
+        {
+            retryCount++;
+            Console.WriteLine($"Migration attempt {retryCount} failed. Retrying in {waitTime.TotalSeconds} seconds...");
+            Thread.Sleep(waitTime);
+        }
+    }
 }
 
 ConfigureMiddleware(app);
-
 app.Run();
 
 void ConfigureServices(IServiceCollection services, IConfiguration config)
 {
     services.RegisterServices();
-
-    services.AddAutoMapper(cfg => 
-    { 
-
-    }, typeof(MappingProfile).Assembly);
-
+    services.AddAutoMapper(cfg => { }, typeof(MappingProfile).Assembly);
     services.AddControllers();
-
     services.AddEndpointsApiExplorer();
     ConfigureSwagger(services);
     ConfigureSecurityPolicies(services);
@@ -64,11 +95,7 @@ void ConfigureSwagger(IServiceCollection services)
 {
     services.AddSwaggerGen(c =>
     {
-        c.SwaggerDoc("v1", new OpenApiInfo
-        {
-            Title = "StockApp API V1",
-            Version = "v1"
-        });
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "StockApp API V1", Version = "v1" });
         c.CustomSchemaIds(CustomSchemaIdStrategy.GetSchemaId);
     });
 }
@@ -79,10 +106,7 @@ void ConfigureSecurityPolicies(IServiceCollection services)
     {
         options.AddPolicy("DefaultPolicy", builder =>
         {
-            builder
-                .AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod();
+            builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
         });
     });
 
@@ -109,18 +133,7 @@ void ConfigureMiddleware(WebApplication app)
     app.UseRequestLocalization(locOptions.Value);
 
     app.UseRouting();
-
     app.UseCors("DefaultPolicy");
-
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI(c =>
-        {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "StockApp API V1");
-            c.RoutePrefix = string.Empty;
-        });
-    }
 
     app.UseSwagger();
     app.UseSwaggerUI(c =>

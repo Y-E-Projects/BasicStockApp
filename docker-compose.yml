@@ -14,6 +14,11 @@ services:
       - "3307:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "marketuser", "-pmarket123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   api:
     build:
@@ -21,12 +26,19 @@ services:
       dockerfile: Dockerfile
     container_name: mymarket-api
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     environment:
-      ConnectionStrings__DefaultConnection: "Server=mysql;Database=MarketDb;User=marketuser;Password=market123;"
+      ConnectionStrings__DefaultConnection: "Server=mysql;Port=3306;Database=MarketDb;User=marketuser;Password=market123"
       DOTNET_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "https://+:5001;http://+:5000"
+      ASPNETCORE_Kestrel__Certificates__Default__Password: "MySecretPassword"
+      ASPNETCORE_Kestrel__Certificates__Default__Path: "/https/aspnetapp.pfx"
     ports:
-      - "8080:8080"
+      - "5000:5000"
+      - "5001:5001"
+    volumes:
+      - ./https:/https:ro
 
 volumes:
   mysql-data:
