@@ -6,6 +6,7 @@ C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\API.
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\API.pdb
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\en-US\API.resources.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\tr-TR\API.resources.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\AutoMapper.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Azure.Core.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Azure.Identity.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\BouncyCastle.Cryptography.dll
