@@ -1,0 +1,15 @@
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\bin\Release\net9.0\EL.deps.json
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\bin\Release\net9.0\EL.runtimeconfig.json
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\bin\Release\net9.0\EL.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\bin\Release\net9.0\EL.pdb
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\obj\Release\net9.0\EL.csproj.AssemblyReference.cache
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\obj\Release\net9.0\EL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\obj\Release\net9.0\EL.AssemblyInfoInputs.cache
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\obj\Release\net9.0\EL.AssemblyInfo.cs
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\obj\Release\net9.0\EL.csproj.CoreCompileInputs.cache
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\obj\Release\net9.0\EL.sourcelink.json
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\obj\Release\net9.0\EL.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\obj\Release\net9.0\refint\EL.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\obj\Release\net9.0\EL.pdb
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\obj\Release\net9.0\EL.genruntimeconfig.cache
+C:\Users\X\Desktop\Projects\BasicStockApp\EL\obj\Release\net9.0\ref\EL.dll

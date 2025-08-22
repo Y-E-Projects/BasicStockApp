@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CategoryAdded" xml:space="preserve">
+    <value>Category has been successfully added.</value>
+  </data>
+  <data name="Invisible" xml:space="preserve">
+    <value>Invisible</value>
+  </data>
+  <data name="CategoryNotFound" xml:space="preserve">
+    <value>Category not found.</value>
+  </data>
+  <data name="CategoryVisibility" xml:space="preserve">
+    <value>Category visibility has been successfully changed to {0}.</value>
+  </data>
+  <data name="Visible" xml:space="preserve">
+    <value>Visible</value>
+  </data>
+  <data name="InvalidCategoryData" xml:space="preserve">
+    <value>Invalid category data.</value>
+  </data>
+  <data name="PriceHistoryNotFound" xml:space="preserve">
+    <value>Price history not found for the related product.</value>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>Product not found.</value>
+  </data>
+  <data name="BarcodeAlreadyExists" xml:space="preserve">
+    <value>A product with this barcode already exists.</value>
+  </data>
+  <data name="InvalidCategory" xml:space="preserve">
+    <value>Invalid category value.</value>
+  </data>
+  <data name="PriceUpdatedSuccessfully" xml:space="preserve">
+    <value>Price updated successfully.</value>
+  </data>
+  <data name="ProductAddedSuccessfully" xml:space="preserve">
+    <value>Product added successfully.</value>
+  </data>
+  <data name="RelatedCategoryNotFound" xml:space="preserve">
+    <value>Related category not found.</value>
+  </data>
+  <data name="EmptySellItemList" xml:space="preserve">
+    <value>Product list for sale cannot be empty.</value>
+  </data>
+  <data name="ProductNotFoundWithKey" xml:space="preserve">
+    <value>Product not found: {0}</value>
+  </data>
+  <data name="SellCreatedSuccessfully" xml:space="preserve">
+    <value>Sale created successfully.</value>
+  </data>
+  <data name="SellCreationError" xml:space="preserve">
+    <value>Error occurred while creating sale: {0}</value>
+  </data>
+  <data name="SellCodeCannotBeEmpty" xml:space="preserve">
+    <value>Sale code cannot be empty.</value>
+  </data>
+  <data name="SellNotFound" xml:space="preserve">
+    <value>Sale not found.</value>
+  </data>
+  <data name="CategoryNotVisible" xml:space="preserve">
+    <value>Cannot add because this category is not visible.</value>
+  </data>
+  <data name="EndDateMustBeAfterOrEqualStartDate" xml:space="preserve">
+    <value>End date must be greater than or equal to start date.</value>
+  </data>
+  <data name="CategoryNameUpdatedSuccessfully" xml:space="preserve">
+    <value>Category name updated successfully.</value>
+  </data>
+  <data name="ProductOutOfStock" xml:space="preserve">
+    <value>The selected product is currently out of stock.</value>
+  </data>
+  <data name="InvalidQuantity" xml:space="preserve">
+    <value>Please enter a valid product quantity.</value>
+  </data>
+  <data name="InsufficientProductQuantity" xml:space="preserve">
+    <value>The requested quantity is not available in stock.</value>
+  </data>
+  <data name="StockUpdateMessage" xml:space="preserve">
+    <value>Stock has been successfully {0}.</value>
+  </data>
+  <data name="Added" xml:space="preserve">
+    <value>Added</value>
+  </data>
+  <data name="Reduced" xml:space="preserve">
+    <value>Reduced</value>
+  </data>
+  <data name="InvalidStockType" xml:space="preserve">
+    <value>Invalid stock type.</value>
+  </data>
+  <data name="DuplicateProductNotAllowed" xml:space="preserve">
+    <value>The same product cannot be added more than once in the list.</value>
+  </data>
+  <data name="EmptyStockList" xml:space="preserve">
+    <value>Action could not be completed: The stock list is empty or invalid.</value>
+  </data>
+  <data name="InsufficientStock" xml:space="preserve">
+    <value>{1} operation could not be performed for product {0}: Insufficient stock.</value>
+  </data>
+  <data name="Adding" xml:space="preserve">
+    <value>Adding</value>
+  </data>
+  <data name="Reducing" xml:space="preserve">
+    <value>Reducing</value>
+  </data>
+  <data name="SupplierCreated" xml:space="preserve">
+    <value>The new supplier record has been successfully created.</value>
+  </data>
+  <data name="InvalidSupplier" xml:space="preserve">
+    <value>Supplier information is invalid or not registered.</value>
+  </data>
+  <data name="ProductNameUpdatedSuccessfully" xml:space="preserve">
+    <value>Product name updated successfully.</value>
+  </data>
+  <data name="SupplierNotFound" xml:space="preserve">
+    <value>Supplier not found.</value>
+  </data>
+  <data name="EmptyReturnSellItemList" xml:space="preserve">
+    <value>The return process could not be started: The return sell item list is empty.</value>
+  </data>
+  <data name="SellItemNotFound" xml:space="preserve">
+    <value>Sell item not found.</value>
+  </data>
+  <data name="ReturnQuantityExceedsSoldQuantity" xml:space="preserve">
+    <value>The return process could not be completed: Return quantity exceeds the sold quantity.</value>
+  </data>
+  <data name="ReturnSellItemsProcessedSuccessfully" xml:space="preserve">
+    <value>Return process completed successfully.</value>
+  </data>
+  <data name="MultipleSellCodesNotAllowed" xml:space="preserve">
+    <value>Return process could not be completed: Multiple sell codes are not allowed.</value>
+  </data>
+  <data name="DuplicateProductInReturnList" xml:space="preserve">
+    <value>Return process could not be completed: The same product cannot be added to the return list more than once.</value>
+  </data>
+  <data name="ReturnQuantityAlreadyProcessed" xml:space="preserve">
+    <value>The return process could not be completed: The specified product’s return quantity has already been processed.</value>
+  </data>
+  <data name="ProductUpdatedSuccessfully" xml:space="preserve">
+    <value>Product updated successfully.</value>
+  </data>
+  <data name="ProductVisibility" xml:space="preserve">
+    <value>Product visibility has been successfully changed to {0}.</value>
+  </data>
+  <data name="ProductNotVisible" xml:space="preserve">
+    <value>Cannot selected because this product is not visible.</value>
+  </data>
+  <data name="CountMustBeGreaterThanZero" xml:space="preserve">
+    <value>Operation could not be completed: Value must be greater than zero.</value>
+  </data>
+</root>
