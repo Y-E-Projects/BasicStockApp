@@ -64,8 +64,8 @@ namespace API.Controller
             _categoryService.Update(category);
 
             string visibilityStatus = category.IsVisible
-                ? _localizer.Localize("CategoryVisible")
-                : _localizer.Localize("CategoryInvisible");
+                ? _localizer.Localize("Visible")
+                : _localizer.Localize("Invisible");
 
             string messageTemplate = _localizer.Localize("CategoryVisibility");
             string message = string.Format(messageTemplate, visibilityStatus);

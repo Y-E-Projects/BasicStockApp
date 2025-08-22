@@ -120,7 +120,7 @@
   <data name="CategoryAdded" xml:space="preserve">
     <value>Kategori başarılı bir şekilde eklenmiştir.</value>
   </data>
-  <data name="CategoryInvisible" xml:space="preserve">
+  <data name="Invisible" xml:space="preserve">
     <value>Görünmez</value>
   </data>
   <data name="CategoryNotFound" xml:space="preserve">
@@ -129,7 +129,7 @@
   <data name="CategoryVisibility" xml:space="preserve">
     <value>Kategori görünürlüğü başarıyla {0} olarak değiştirildi.</value>
   </data>
-  <data name="CategoryVisible" xml:space="preserve">
+  <data name="Visible" xml:space="preserve">
     <value>Görünür</value>
   </data>
   <data name="InvalidCategoryData" xml:space="preserve">
@@ -254,5 +254,14 @@
   </data>
   <data name="ProductUpdatedSuccessfully" xml:space="preserve">
     <value>Ürün başarıyla güncellendi.</value>
+  </data>
+  <data name="ProductVisibility" xml:space="preserve">
+    <value>Ürün görünürlüğü başarıyla {0} olarak değiştirildi.</value>
+  </data>
+  <data name="ProductNotVisible" xml:space="preserve">
+    <value>Bu ürün görünür olmadığı için seçilemiyor.</value>
+  </data>
+  <data name="CountMustBeGreaterThanZero" xml:space="preserve">
+    <value>İşlem gerçekleştirilemedi: Değer sıfırdan büyük olmalıdır.</value>
   </data>
 </root>

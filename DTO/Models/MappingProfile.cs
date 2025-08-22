@@ -31,6 +31,10 @@ namespace DTO.Models
             CreateMap<StockHistory, ListModel.StockHistory>()
                 .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product.Name));
 
+            CreateMap<StockHistory, DetailModel.StockHistory>()
+                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.CreatedAt))
+                .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product.Name));
+
             // Product Mapping
             CreateMap<Product, ListModel.Product>()
                 .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category.Name));
@@ -47,6 +51,16 @@ namespace DTO.Models
                 .ForMember(dest => dest.BackPrice, opt => opt.MapFrom(src => src.BackPrice))
                 .ForMember(dest => dest.NewPrice, opt => opt.MapFrom(src => src.NewPrice))
                 .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.CreatedAt));
+
+            CreateMap<Product, ListModel.TopSellProduct>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.TotalQuantity, opt => opt.MapFrom(src =>
+                    src.SellItems.Sum(si => si.Quantity) -
+                    src.SellItems.SelectMany(si => si.ReturnHistories).Sum(rh => rh.Quantity)))
+                .ForMember(dest => dest.TotalAmount, opt => opt.MapFrom(src =>
+                    src.SellItems.Sum(si => si.LineTotal) -
+                    src.SellItems.SelectMany(si => si.ReturnHistories).Sum(rh => rh.UnitPrice * rh.Quantity)
+                ));
         }
     }
 }

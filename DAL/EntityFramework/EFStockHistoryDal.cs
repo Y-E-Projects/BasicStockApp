@@ -26,5 +26,10 @@ namespace DAL.EntityFramework
         }
 
         public List<ListModel.StockHistory> GetList() => _context.StockHistories.ProjectTo<ListModel.StockHistory>(_mapper.ConfigurationProvider).ToList();
+
+        public List<DetailModel.StockHistory> GetWithProduct(Guid productKey) => _context.StockHistories
+                .Where(x => x.ProductKey == productKey)
+                .ProjectTo<DetailModel.StockHistory>(_mapper.ConfigurationProvider)
+                .ToList();
     }
 }

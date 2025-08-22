@@ -51,5 +51,13 @@ namespace DTO.Models
             public required string Address { get; set; }
             public int Count { get; set; }
         }
+
+        public class TopSellProduct
+        {
+            public required Guid Key { get; set; }
+            public required string Name { get; set; }
+            public int TotalQuantity { get; set; }
+            public decimal TotalAmount { get; set; }
+        }
     }
 }

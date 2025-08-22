@@ -83,6 +83,9 @@ namespace DAL.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<int>("MinimumQuantity")
                         .HasColumnType("int");
 

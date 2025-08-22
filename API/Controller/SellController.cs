@@ -71,6 +71,12 @@ namespace API.Controller
                             message = _localizer.Localize("ProductNotFound")
                         });
 
+                    if (!product.IsVisible)
+                        return BadRequest(new
+                        {
+                            message = _localizer.Localize("ProductNotVisible"),
+                        });
+
                     if (product.Quantity <= 0)
                         return BadRequest(new
                         {

@@ -139,6 +139,65 @@ namespace API.Controller
             return Ok(products);
         }
 
+        [HttpGet("GetListWithLowStock")]
+        public IActionResult GetListWithLowStock()
+        {
+            var products = _productService.GetListWithLowStock();
+            return Ok(products);
+        }
+
+        [HttpGet("GetStock")]
+        public IActionResult GetStock(Guid key)
+        {
+            var product = _productService.GetByKey(key);
+            if (product == null)
+                return NotFound(new
+                {
+                    message = _localizer.Localize("ProductNotFound"),
+                });
+
+            return Ok(product.Quantity);
+        }
+
+        [HttpGet("GetPrice")]
+        public IActionResult GetPrice(Guid key)
+        {
+            var product = _productService.GetByKey(key);
+            if (product == null)
+                return NotFound(new
+                {
+                    message = _localizer.Localize("ProductNotFound"),
+                });
+
+            return Ok(product.Price);
+        }
+
+        [HttpPatch("ChangeVisible")]
+        public IActionResult ChangeVisible(Guid key)
+        {
+            var product = _productService.GetByKey(key);
+            if (product == null)
+                return NotFound(new
+                {
+                    message = _localizer.Localize("ProductNotFound"),
+                });
+
+            product.IsVisible = !product.IsVisible;
+            _productService.Update(product);
+
+            string visibilityStatus = product.IsVisible
+                ? _localizer.Localize("Visible")
+                : _localizer.Localize("Invisible");
+
+            string messageTemplate = _localizer.Localize("ProductVisibility");
+            string message = string.Format(messageTemplate, visibilityStatus);
+
+            return Ok(new
+            {
+                message
+            });
+        }
+
         [HttpPatch("UpdatePrice")]
         public IActionResult UpdatePrice(UpdateModel.ProductPrice model)
         {

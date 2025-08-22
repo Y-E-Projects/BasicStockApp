@@ -27,6 +27,7 @@
             public Guid CategoryKey { get; set; }
             public int MinimumQuantity { get; set; }
             public required string Barcode { get; set; }
+            public bool IsVisible { get; set; }
         }
     }
 }

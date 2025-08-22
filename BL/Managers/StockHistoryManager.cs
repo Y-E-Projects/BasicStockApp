@@ -27,5 +27,6 @@ namespace BL.Managers
         public void AddRange(List<StockHistory> stockHistories) => _stockHistoryDal.AddRange(stockHistories);
 
         public List<ListModel.StockHistory> GetList() => _stockHistoryDal.GetList();
+        public List<DetailModel.StockHistory> GetWithProduct(Guid productKey) => _stockHistoryDal.GetWithProduct(productKey);
     }
 }

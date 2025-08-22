@@ -19,6 +19,7 @@ namespace DTO.Models
             public int MinimumQuantity { get; set; }
             public Guid CategoryKey { get; set; }
             public Guid? SupplierKey { get; set; }
+            public bool IsVisible { get; set; }
         }
 
         public class Stock

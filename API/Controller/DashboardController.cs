@@ -71,5 +71,18 @@ namespace API.Controller
 
             return Ok(dashboardData);
         }
+
+        [HttpGet("GetTopProducts")]
+        public IActionResult GetTopProducts(int count = 5)
+        {
+            if (count <= 0)
+                return BadRequest(new
+                {
+                    message = _localizer.Localize("CountMustBeGreaterThanZero"),
+                });
+
+            var topProducts = _productService.GetTopProducts(count);
+            return Ok(topProducts);
+        }
     }
 }

@@ -43,5 +43,9 @@ namespace BL.Managers
         public List<Product> GetByKeys(List<Guid> productKeys) => _productDal.GetByKeys(productKeys);
 
         public void UpdateQuantities(List<AddModel.Stock> models) => _productDal.UpdateQuantities(models);
+
+        public List<ListModel.Product> GetListWithLowStock() => _productDal.GetListWithLowStock();
+
+        public List<ListModel.TopSellProduct> GetTopProducts(int count) => _productDal.GetTopProducts(count);
     }
 }

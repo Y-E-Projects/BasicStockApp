@@ -23,6 +23,12 @@ namespace API.Controller
             _productService = productService;
         }
 
+        [HttpGet]
+        public IActionResult GetList()
+        {
+            return Ok(_stockHistoryService.GetList());
+        }
+
         [HttpPost]
         public IActionResult Add(List<AddModel.Stock> models)
         {
@@ -37,15 +43,13 @@ namespace API.Controller
                 .FirstOrDefault(g => g.Count() > 1);
 
             if (duplicateKey != null)
-            {
                 return BadRequest(new
                 {
                     message = _localizer.Localize("DuplicateProductNotAllowed")
                 });
-            }
 
             var productKeys = models.Select(m => m.ProductKey).ToList();
-            var products = _productService.GetByKeys(productKeys) 
+            var products = _productService.GetByKeys(productKeys)
                              .ToDictionary(p => p.Key, p => p);
 
             var stockHistories = new List<StockHistory>();
@@ -114,10 +118,18 @@ namespace API.Controller
             });
         }
 
-        [HttpGet]
-        public IActionResult GetList()
+        [HttpGet("GetWithProduct")]
+        public IActionResult GetWithProduct(Guid productKey)
         {
-            return Ok(_stockHistoryService.GetList());
+            var product = _productService.GetByKey(productKey);
+            if (product == null)
+                return NotFound(new
+                {
+                    message = _localizer.Localize("ProductNotFound")
+                });
+
+            var stockHistories = _stockHistoryService.GetWithProduct(productKey);
+            return Ok(stockHistories);
         }
     }
 }

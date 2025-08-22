@@ -79,6 +79,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "API.Controller.DashboardController",
+    "Method": "GetTopProducts",
+    "RelativePath": "api/Dashboard/GetTopProducts",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "count",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "API.Controller.PriceHistoryController",
     "Method": "GetWithProduct",
     "RelativePath": "api/PriceHistory/GetWithProduct",
@@ -96,16 +112,6 @@
   },
   {
     "ContainingType": "API.Controller.ProductController",
-    "Method": "GetList",
-    "RelativePath": "api/Product",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "API.Controller.ProductController",
     "Method": "Create",
     "RelativePath": "api/Product",
     "HttpMethod": "POST",
@@ -116,6 +122,32 @@
         "Name": "model",
         "Type": "DTO.Models.AddModel\u002BProduct",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.ProductController",
+    "Method": "GetList",
+    "RelativePath": "api/Product",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.ProductController",
+    "Method": "ChangeVisible",
+    "RelativePath": "api/Product/ChangeVisible",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -154,8 +186,50 @@
   },
   {
     "ContainingType": "API.Controller.ProductController",
+    "Method": "GetListWithLowStock",
+    "RelativePath": "api/Product/GetListWithLowStock",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.ProductController",
+    "Method": "GetPrice",
+    "RelativePath": "api/Product/GetPrice",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.ProductController",
     "Method": "GetProductsWithSupplier",
     "RelativePath": "api/Product/GetProductsWithSupplier",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.ProductController",
+    "Method": "GetStock",
+    "RelativePath": "api/Product/GetStock",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -180,6 +254,22 @@
         "Name": "barcode",
         "Type": "System.String",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.ProductController",
+    "Method": "Update",
+    "RelativePath": "api/Product/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "DTO.Models.UpdateModel\u002BProduct",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -276,6 +366,16 @@
   },
   {
     "ContainingType": "API.Controller.StockController",
+    "Method": "GetList",
+    "RelativePath": "api/Stock",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "API.Controller.StockController",
     "Method": "Add",
     "RelativePath": "api/Stock",
     "HttpMethod": "POST",
@@ -292,12 +392,18 @@
   },
   {
     "ContainingType": "API.Controller.StockController",
-    "Method": "GetList",
-    "RelativePath": "api/Stock",
+    "Method": "GetWithProduct",
+    "RelativePath": "api/Stock/GetWithProduct",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "productKey",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

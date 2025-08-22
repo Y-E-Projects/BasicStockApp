@@ -69,5 +69,15 @@ namespace DTO.Models
             public int Quantity { get; set; } 
             public string? Reason { get; set; } 
         }
+
+        public class StockHistory
+        {
+            public StockHistoryType Type { get; set; }
+            public Guid ProductKey { get; set; }
+            public required string Product { get; set; }
+            public int Quantity { get; set; }
+            public string? Note { get; set; }
+            public DateTime Date { get; set; }
+        }
     }
 }

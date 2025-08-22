@@ -138,5 +138,18 @@ namespace DAL.EntityFramework
         }
 
         public List<ListModel.Product> GetList() => _context.Products.ProjectTo<ListModel.Product>(_mapper.ConfigurationProvider).ToList();
+
+        public List<ListModel.Product> GetListWithLowStock() => _context.Products
+            .Where(x => x.Quantity <= x.MinimumQuantity)
+            .ProjectTo<ListModel.Product>(_mapper.ConfigurationProvider).ToList();
+
+        public List<ListModel.TopSellProduct> GetTopProducts(int count) => _context.Products
+                .OrderByDescending(p =>
+                    p.SellItems.Sum(si => si.Quantity) -
+                    p.SellItems.SelectMany(si => si.ReturnHistories).Sum(rh => (int?)rh.Quantity) ?? 0
+                )
+                .Take(count)
+                .ProjectTo<ListModel.TopSellProduct>(_mapper.ConfigurationProvider)
+                .ToList();
     }
 }

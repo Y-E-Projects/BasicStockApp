@@ -8,5 +8,6 @@ namespace DAL.Abstract
     {
         void AddRange(List<StockHistory> stockHistories);
         List<ListModel.StockHistory> GetList();
+        List<DetailModel.StockHistory> GetWithProduct(Guid productKey);
     }
 }
