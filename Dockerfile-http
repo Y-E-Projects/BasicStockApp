@@ -1,4 +1,3 @@
-# 1. Build aþamasý
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
@@ -15,7 +14,6 @@ COPY . .
 WORKDIR /app/API  
 RUN dotnet publish -c Release -o out
 
-# 2. Runtime aþamasý
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
 
