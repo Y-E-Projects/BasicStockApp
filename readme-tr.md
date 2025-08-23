@@ -4,7 +4,7 @@
 
 ## Docker ile Kurulum Önerisi
 
-Modern, hızlı ve sorunsuz bir kurulum için BasicStockApp uygulamasını Docker üzerinden çalıştırmanız şiddetle önerilir. Docker, manuel IIS kurulumu, MySQL yüklemesi ve yerel yapılandırma gereksinimini ortadan kaldırır. Docker sürümü hem HTTP hem de HTTPS (SSL) desteği sunar ve önceden yapılandırılmış `docker-compose.yml` ve `docker-compose-ssl.yml` dosyalarını içerir.
+Modern, hızlı ve sorunsuz bir kurulum için BasicStockApp uygulamasını Docker üzerinden çalıştırmanız şiddetle önerilir. Docker, manuel IIS kurulumu, MySQL yüklemesi ve yerel yapılandırma gereksinimini ortadan kaldırır. Docker sürümü hem HTTP hem de HTTPS (SSL) desteği sunar ve önceden yapılandırılmış `docker-compose.yml` dosyalarını içerir.
 
 Tam Docker kurulum rehberi ve yapılandırma dosyalarına aşağıdaki bağlantıdan ulaşabilirsiniz:
 [BasicStockApp Docker Repository](https://github.com/Y-E-Projects/BasicStockApp-Api-Docker-MySQL)
