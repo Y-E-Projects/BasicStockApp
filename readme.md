@@ -4,7 +4,7 @@
 
 ## Docker Deployment Recommended
 
-For a modern, streamlined, and hassle-free deployment, it is highly recommended to use Docker to run BasicStockApp. Docker eliminates the need for manual IIS setup, MySQL installation, and local configuration. The Docker version supports both HTTP and HTTPS (SSL) setups and provides pre-configured `docker-compose.yml` and `docker-compose-ssl.yml` files.
+For a modern, streamlined, and hassle-free deployment, it is highly recommended to use Docker to run BasicStockApp. Docker eliminates the need for manual IIS setup, MySQL installation, and local configuration. The Docker version supports both HTTP and HTTPS (SSL) setups and provides pre-configured `docker-compose.yml` files.
 
 You can find the full Docker deployment guide and configuration files here:
 [BasicStockApp Docker Repository](https://github.com/Y-E-Projects/BasicStockApp-Docker)
