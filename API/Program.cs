@@ -10,22 +10,18 @@ using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Kestrel HTTPS ve HTTP portlarý
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(5000); // HTTP
+    options.ListenAnyIP(5000); 
     options.ListenAnyIP(5001, listenOptions =>
     {
-        // Container içinde /https/aspnetapp.pfx mount edilmiþ olacak
         listenOptions.UseHttps("/https/aspnetapp.pfx", "MySecretPassword");
     });
 });
 
-// Environment deðiþkenlerini yükle
 builder.Configuration.AddEnvironmentVariables();
 var configuration = builder.Configuration;
 
-// DB connection string
 var connStr = configuration.GetConnectionString("DefaultConnection") ??
     throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -46,7 +42,6 @@ ConfigureServices(builder.Services, configuration);
 
 var app = builder.Build();
 
-// Migration Retry Logic
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<MainDbContext>();
