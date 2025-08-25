@@ -73,7 +73,7 @@ namespace API.Controller
         }
 
         [HttpGet("GetTopProducts")]
-        public IActionResult GetTopProducts(int count = 5)
+        public IActionResult GetTopProducts(int count = 5, DateTime? start = null, DateTime? end = null)
         {
             if (count <= 0)
                 return BadRequest(new
@@ -81,7 +81,16 @@ namespace API.Controller
                     message = _localizer.Localize("CountMustBeGreaterThanZero"),
                 });
 
-            var topProducts = _productService.GetTopProducts(count);
+            var startDate = start ?? DateTime.UtcNow.AddHours(3).Date;
+            var endDate = end ?? DateTime.UtcNow.AddHours(3).Date;
+
+            if (endDate < startDate)
+                return BadRequest(new
+                {
+                    message = _localizer.Localize("EndDateMustBeAfterOrEqualStartDate"),
+                });
+
+            var topProducts = _productService.GetTopProducts(count, startDate, endDate);
             return Ok(topProducts);
         }
     }

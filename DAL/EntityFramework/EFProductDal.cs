@@ -144,7 +144,7 @@ namespace DAL.EntityFramework
             .ProjectTo<ListModel.Product>(_mapper.ConfigurationProvider).ToList();
 
         public List<ListModel.TopSellProduct> GetTopProducts(int count, DateTime start, DateTime end) => _context.Products
-            .Where(p => p.SellItems.Any(si => si.Sell.CreatedAt >= start && si.Sell.CreatedAt <= end))
+            .Where(p => p.SellItems.Any(si => si.Sell.CreatedAt.Date >= start.Date && si.Sell.CreatedAt <= end.Date))
             .OrderByDescending(p =>
                 p.SellItems.Sum(si => si.Quantity) - p.SellItems.SelectMany(si => si.ReturnHistories).Sum(rh => (int?)rh.Quantity) ?? 0
             )
