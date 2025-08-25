@@ -19,6 +19,6 @@ namespace DAL.Abstract
         DetailModel.Product? GetDetailWithBarcode(string barcode);
         List<ListModel.Product> GetList();
         List<ListModel.Product> GetListWithLowStock();
-        List<ListModel.TopSellProduct> GetTopProducts(int count);
+        List<ListModel.TopSellProduct> GetTopProducts(int count, DateTime start, DateTime end);
     }
 }

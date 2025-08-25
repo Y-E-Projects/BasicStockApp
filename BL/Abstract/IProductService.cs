@@ -17,6 +17,6 @@ namespace BL.Abstract
         void UpdateQuantities(List<AddModel.Stock> models);
         List<ListModel.Product> GetListWithSupplier(Guid supplierKey);
         List<ListModel.Product> GetListWithLowStock();
-        List<ListModel.TopSellProduct> GetTopProducts(int count);
+        List<ListModel.TopSellProduct> GetTopProducts(int count, DateTime start, DateTime end);
     }
 }

@@ -46,6 +46,6 @@ namespace BL.Managers
 
         public List<ListModel.Product> GetListWithLowStock() => _productDal.GetListWithLowStock();
 
-        public List<ListModel.TopSellProduct> GetTopProducts(int count) => _productDal.GetTopProducts(count);
+        public List<ListModel.TopSellProduct> GetTopProducts(int count, DateTime start, DateTime end) => _productDal.GetTopProducts(count, start, end);
     }
 }
