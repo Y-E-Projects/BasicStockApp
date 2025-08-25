@@ -7,16 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Abstract\IProductService.cs" />
-    <Compile Remove="Managers\ProductManager.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Abstract\IProductService.cs" />
-    <None Include="Managers\ProductManager.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
   </ItemGroup>
 

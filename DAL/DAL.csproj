@@ -7,16 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Abstract\IProductDal.cs" />
-    <Compile Remove="EntityFramework\EFProductDal.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Abstract\IProductDal.cs" />
-    <None Include="EntityFramework\EFProductDal.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
       <PrivateAssets>all</PrivateAssets>
