@@ -24,16 +24,12 @@ namespace BL.Managers
 
         public void Update(Category entity) => _categoryDal.Update(entity);
 
-        public List<ListModel.Category> GetList()
-        {
-            var categories = _categoryDal.FullAttached();
-            return categories.Select(c => new ListModel.Category
-            {
-                Key = c.Key,
-                Name = c.Name,
-                Count = c.Products.Count,
-                IsVisible = c.IsVisible
-            }).ToList();
-        }
+        public List<ListModel.Category> GetList() => _categoryDal.GetList();
+
+        public async Task CreateRangeAsync(List<Category> entities) => await _categoryDal.CreateRangeAsync(entities);
+
+        public async Task<Guid> GetFirstKey() => await _categoryDal.GetFirstKey();
+
+        public async Task<List<Category>> GetByKeys(IEnumerable<Guid> keys) => await _categoryDal.GetByKeys(keys);
     }
 }

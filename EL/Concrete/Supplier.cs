@@ -1,7 +1,10 @@
 ﻿using EL.Concrete.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace EL.Concrete
 {
+    [Index(nameof(Name), Name = "IX_Supplier_Name")]
+    [Index(nameof(Email), IsUnique = true, Name = "IX_Supplier_Email")]
     public class Supplier : BaseEntity
     {
         public required string Name { get; set; }

@@ -3,6 +3,7 @@ using DTO.Models;
 using EL.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace API.Controller
 {
@@ -77,6 +78,124 @@ namespace API.Controller
             {
                 message = _localizer.Localize("ProductAddedSuccessfully"),
                 productKey = newProduct.Key,
+            });
+        }
+
+        [HttpPost("CreateRange")]
+        public async Task<IActionResult> CreateRange(List<AddModel.Product> models)
+        {
+            List<Product> newProducts = new();
+            List<string> errorMessages = new();
+
+            int i = 1;
+
+            foreach (var model in models)
+            {
+                if (_productService.CheckBarcodeExists(model.Barcode))
+                    errorMessages.Add($"{i}.: {_localizer.Localize("BarcodeAlreadyExists")}");
+
+                if (_categoryService.GetByKey(model.CategoryKey) == null)
+                    errorMessages.Add($"{i}.: {_localizer.Localize("InvalidCategory")}");
+
+                if (_categoryService.GetByKey(model.CategoryKey).IsVisible == false)
+                    errorMessages.Add($"{i}.: {_localizer.Localize("CategoryNotVisible")}");
+
+                Product newProduct = new Product
+                {
+                    Name = model.Name,
+                    Price = model.Price,
+                    Barcode = model.Barcode,
+                    CategoryKey = model.CategoryKey,
+                    Quantity = model.Quantity,
+                    MinimumQuantity = model.MinimumQuantity,
+                };
+
+                newProducts.Add(newProduct);
+
+                if (model.SupplierKey != null && model.SupplierKey != Guid.Empty)
+                {
+                    if (_supplierService.GetByKey(model.SupplierKey.Value) == null)
+                        errorMessages.Add($"{i}.: {_localizer.Localize("InvalidSupplier")}");
+                    else
+                        newProduct.SupplierKey = model.SupplierKey;
+                }
+
+                i++;
+            }
+
+            await _productService.CreateRange(newProducts);
+
+            return Ok(new
+            {
+                message = _localizer.Localize("ProductAddedSuccessfully"),
+            });
+        }
+
+        [HttpPost("CreateRangeNew")]
+        public async Task<IActionResult> CreateRangeNew(List<AddModel.Product> models)
+        {
+            if (models == null || models.Count == 0)
+                return BadRequest(new { message = _localizer.Localize("NoProductsProvided") });
+
+            var errorMessages = new Dictionary<int, List<string>>();
+            var newProducts = new List<Product>();
+
+            var barcodes = models.Select(m => m.Barcode).ToList();
+            var existingBarcodes = await _productService.GetAllBarcodes(barcodes);
+            var categories = await _categoryService.GetByKeys(models.Select(m => m.CategoryKey));
+            var suppliers = await _supplierService.GetByKeys(
+                models.Where(m => m.SupplierKey.HasValue && m.SupplierKey != Guid.Empty)
+                .Select(m => m.SupplierKey!.Value));
+
+            int i = 1;
+            foreach (var model in models)
+            {
+                var currentErrors = new List<string>();
+
+                if (existingBarcodes.Contains(model.Barcode))
+                    currentErrors.Add(_localizer.Localize("BarcodeAlreadyExists"));
+
+                var category = categories.FirstOrDefault(c => c.Key == model.CategoryKey);
+                if (category == null)
+                    currentErrors.Add(_localizer.Localize("InvalidCategory"));
+                else if (!category.IsVisible)
+                    currentErrors.Add(_localizer.Localize("CategoryNotVisible"));
+
+                Guid? supplierKey = null;
+                if (model.SupplierKey.HasValue && model.SupplierKey != Guid.Empty)
+                {
+                    if (!suppliers.Any(s => s.Key == model.SupplierKey))
+                        currentErrors.Add(_localizer.Localize("InvalidSupplier"));
+                    else
+                        supplierKey = model.SupplierKey;
+                }
+
+                if (currentErrors.Any())
+                    errorMessages[i] = currentErrors;
+                else
+                    newProducts.Add(new Product
+                    {
+                        Name = model.Name,
+                        Price = model.Price,
+                        Barcode = model.Barcode,
+                        CategoryKey = model.CategoryKey,
+                        Quantity = model.Quantity,
+                        MinimumQuantity = model.MinimumQuantity,
+                        SupplierKey = supplierKey
+                    });
+
+                i++;
+            }
+
+            if (errorMessages.Any())
+                return BadRequest(new { errors = errorMessages });
+
+            await _productService.CreateRange(newProducts);
+
+            return Ok(new
+            {
+                message = _localizer.Localize("ProductAddedSuccessfully"),
+                count = newProducts.Count
             });
         }
 

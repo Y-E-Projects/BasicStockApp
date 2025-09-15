@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EL.Concrete
 {
+    [Index(nameof(SellItemKey), Name = "IX_ReturnHistory_SellItemKey")]
+    [Index(nameof(ProductKey), Name = "IX_ReturnHistory_ProductKey")]
     public class ReturnHistory : BaseEntity
     {
         public Guid SellItemKey { get; set; }
@@ -12,7 +14,7 @@ namespace EL.Concrete
         public Product Product { get; set; } = null!;
 
         [Precision(18, 2)]
-        public decimal UnitPrice { get; set; } // Satış anındaki fiyat (SellItem.UnitPrice'dan alınacak)
+        public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }
         public string? Reason { get; set; }
     }

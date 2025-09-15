@@ -47,5 +47,9 @@ namespace BL.Managers
         public List<ListModel.Product> GetListWithLowStock() => _productDal.GetListWithLowStock();
 
         public List<ListModel.TopSellProduct> GetTopProducts(int count, DateTime start, DateTime end) => _productDal.GetTopProducts(count, start, end);
+
+        public async Task CreateRange(List<Product> products) => await _productDal.CreateRange(products);
+
+        public async Task<List<string>> GetAllBarcodes(List<string> barcodes) => await _productDal.GetAllBarcodes(barcodes);
     }
 }

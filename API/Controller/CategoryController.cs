@@ -2,6 +2,7 @@
 using DTO.Models;
 using EL.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace API.Controller
 {
@@ -47,6 +48,36 @@ namespace API.Controller
             {
                 message = _localizer.Localize("CategoryAdded"),
                 categoryKey = category.Key,
+            });
+        }
+
+        [HttpPost("AddCategoryRange")]
+        public async Task<IActionResult> AddCategoryRange(List<AddModel.Category> models)
+        {
+            List<Category> categories = new();
+
+            foreach (var model in models)
+            {
+                if (models == null || string.IsNullOrWhiteSpace(model.Name))
+                    return BadRequest(new
+                    {
+                        message = _localizer.Localize("InvalidCategoryData")
+                    });
+
+                var category = new Category
+                {
+                    Name = model.Name,
+                    IsVisible = model.IsVisible,
+                };
+
+                categories.Add(category);
+            }
+
+            await _categoryService.CreateRangeAsync(categories);
+
+            return Ok(new
+            {
+                message = _localizer.Localize("CategoryAdded"),
             });
         }
 

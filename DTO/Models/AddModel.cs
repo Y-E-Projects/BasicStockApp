@@ -22,6 +22,17 @@ namespace DTO.Models
             public bool IsVisible { get; set; }
         }
 
+        public class ProductRandom
+        {
+            public required string Name { get; set; }
+            public decimal Price { get; set; }
+            public Guid CategoryKey { get; set; }
+            public required string Barcode { get; set; }
+            public int Quantity { get; set; }
+            public int MinimumQuantity { get; set; }
+            public bool IsVisible { get; set; }
+        }
+
         public class Stock
         {
             public StockHistoryType Type { get; set; }

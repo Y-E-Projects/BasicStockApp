@@ -1,18 +1,22 @@
 using API;
+using API.Hubs;
 using BL.DependencyInjections;
 using DAL.Context;
 using DTO.Models;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System.Globalization;
+using System.IO.Compression;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(5000); 
+    options.ListenAnyIP(5000);
     options.ListenAnyIP(5001, listenOptions =>
     {
         listenOptions.UseHttps("/https/aspnetapp.pfx", "MySecretPassword");
@@ -33,7 +37,27 @@ builder.Services.AddDbContext<MainDbContext>(options =>
             maxRetryDelay: TimeSpan.FromSeconds(10),
             errorNumbersToAdd: null
         );
-    }));
+    })
+    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+);
+
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+    options.Providers.Add<GzipCompressionProvider>();
+    options.Providers.Add<BrotliCompressionProvider>();
+});
+
+builder.Services.Configure<BrotliCompressionProviderOptions>(opts =>
+{
+    opts.Level = CompressionLevel.Fastest;
+});
+builder.Services.Configure<GzipCompressionProviderOptions>(opts =>
+{
+    opts.Level = CompressionLevel.Fastest;
+});
+
+builder.Services.AddOutputCache();
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 builder.Services.AddSingleton<IResourceLocalizer, ResourceLocalizer>();
@@ -72,7 +96,15 @@ void ConfigureServices(IServiceCollection services, IConfiguration config)
 {
     services.RegisterServices();
     services.AddAutoMapper(cfg => { }, typeof(MappingProfile).Assembly);
-    services.AddControllers();
+
+    services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = null;
+            options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        });
+
+    services.AddSignalR();
     services.AddEndpointsApiExplorer();
     ConfigureSwagger(services);
     ConfigureSecurityPolicies(services);
@@ -122,7 +154,10 @@ void ConfigureMiddleware(WebApplication app)
     }
 
     app.UseHttpsRedirection();
-    app.UseStaticFiles();
+
+    app.UseResponseCompression();
+
+    app.UseOutputCache();
 
     var locOptions = app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>();
     app.UseRequestLocalization(locOptions.Value);
@@ -138,4 +173,6 @@ void ConfigureMiddleware(WebApplication app)
     });
 
     app.MapControllers();
+
+    app.MapHub<SellHub>("/sellHub");
 }

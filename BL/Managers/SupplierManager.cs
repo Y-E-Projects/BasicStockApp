@@ -25,5 +25,7 @@ namespace BL.Managers
         public void Update(Supplier entity) => _supplierDal.Update(entity);
 
         public List<ListModel.Supplier> GetList() => _supplierDal.GetList();
+
+        public async Task<List<Supplier>> GetByKeys(IEnumerable<Guid> keys) => await _supplierDal.GetByKeys(keys);
     }
 }

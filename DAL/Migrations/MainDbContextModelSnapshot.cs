@@ -33,9 +33,11 @@ namespace DAL.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("Key");
+
+                    b.HasIndex(new[] { "Name" }, "IX_Category_Name");
 
                     b.ToTable("Categories");
                 });
@@ -62,7 +64,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Key");
 
-                    b.HasIndex("ProductKey");
+                    b.HasIndex(new[] { "ProductKey" }, "IX_PriceHistory_ProductKey");
 
                     b.ToTable("PriceHistories");
                 });
@@ -75,7 +77,7 @@ namespace DAL.Migrations
 
                     b.Property<string>("Barcode")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<Guid>("CategoryKey")
                         .HasColumnType("char(36)");
@@ -91,7 +93,7 @@ namespace DAL.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<decimal>("Price")
                         .HasPrecision(18, 2)
@@ -105,9 +107,14 @@ namespace DAL.Migrations
 
                     b.HasKey("Key");
 
-                    b.HasIndex("CategoryKey");
+                    b.HasIndex(new[] { "Barcode" }, "IX_Product_Barcode")
+                        .IsUnique();
 
-                    b.HasIndex("SupplierKey");
+                    b.HasIndex(new[] { "CategoryKey" }, "IX_Product_CategoryKey");
+
+                    b.HasIndex(new[] { "Name" }, "IX_Product_Name");
+
+                    b.HasIndex(new[] { "SupplierKey" }, "IX_Product_SupplierKey");
 
                     b.ToTable("Products");
                 });
@@ -139,9 +146,9 @@ namespace DAL.Migrations
 
                     b.HasKey("Key");
 
-                    b.HasIndex("ProductKey");
+                    b.HasIndex(new[] { "ProductKey" }, "IX_ReturnHistory_ProductKey");
 
-                    b.HasIndex("SellItemKey");
+                    b.HasIndex(new[] { "SellItemKey" }, "IX_ReturnHistory_SellItemKey");
 
                     b.ToTable("ReturnHistories");
                 });
@@ -161,7 +168,7 @@ namespace DAL.Migrations
 
                     b.Property<string>("SellCode")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<decimal>("TotalAmount")
                         .HasPrecision(18, 2)
@@ -172,6 +179,9 @@ namespace DAL.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Key");
+
+                    b.HasIndex(new[] { "SellCode" }, "IX_Sell_SellCode")
+                        .IsUnique();
 
                     b.ToTable("Sells");
                 });
@@ -204,9 +214,9 @@ namespace DAL.Migrations
 
                     b.HasKey("Key");
 
-                    b.HasIndex("ProductKey");
+                    b.HasIndex(new[] { "ProductKey" }, "IX_SellItem_ProductKey");
 
-                    b.HasIndex("SellKey");
+                    b.HasIndex(new[] { "SellKey" }, "IX_SellItem_SellKey");
 
                     b.ToTable("SellItems");
                 });
@@ -234,7 +244,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Key");
 
-                    b.HasIndex("ProductKey");
+                    b.HasIndex(new[] { "ProductKey" }, "IX_StockHistory_ProductKey");
 
                     b.ToTable("StockHistories");
                 });
@@ -258,17 +268,22 @@ namespace DAL.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Key");
+
+                    b.HasIndex(new[] { "Email" }, "IX_Supplier_Email")
+                        .IsUnique();
+
+                    b.HasIndex(new[] { "Name" }, "IX_Supplier_Name");
 
                     b.ToTable("Suppliers");
                 });

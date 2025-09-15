@@ -14,7 +14,14 @@ C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Goog
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\K4os.Compression.LZ4.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\K4os.Compression.LZ4.Streams.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\K4os.Hash.xxHash.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.AspNetCore.Connections.Abstractions.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.AspNetCore.Http.Connections.Client.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.AspNetCore.Http.Connections.Common.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.AspNetCore.SignalR.Client.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.AspNetCore.SignalR.Client.Core.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.AspNetCore.SignalR.Common.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.Data.SqlClient.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
@@ -26,6 +33,7 @@ C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Micr
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.Extensions.Configuration.Abstractions.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.Extensions.Features.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.Extensions.Logging.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.Extensions.Options.dll
@@ -42,6 +50,7 @@ C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Micr
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Microsoft.SqlServer.Server.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\MySql.Data.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\MySql.EntityFrameworkCore.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Newtonsoft.Json.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -49,6 +58,8 @@ C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\Syst
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\System.Configuration.ConfigurationManager.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\System.Memory.Data.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\System.Net.ServerSentEvents.dll
+C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\System.Net.WebSockets.WebSocketProtocol.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\System.Runtime.Caching.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
 C:\Users\X\Desktop\Projects\BasicStockApp\API\obj\Release\net9.0\PubTmp\Out\System.Security.Permissions.dll

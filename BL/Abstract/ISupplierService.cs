@@ -7,5 +7,6 @@ namespace BL.Abstract
     public interface ISupplierService : IGenericService<Supplier>
     {
         List<ListModel.Supplier> GetList();
+        Task<List<Supplier>> GetByKeys(IEnumerable<Guid> keys);
     }
 }

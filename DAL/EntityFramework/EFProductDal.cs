@@ -5,9 +5,8 @@ using DAL.Context;
 using DAL.Generics;
 using DTO.Models;
 using EL.Concrete;
-using Google.Protobuf.WellKnownTypes;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace DAL.EntityFramework
 {
@@ -152,5 +151,18 @@ namespace DAL.EntityFramework
             .ProjectTo<ListModel.TopSellProduct>(_mapper.ConfigurationProvider)
             .ToList();
 
+        public async Task CreateRange(List<Product> products)
+        {
+            await _context.Products.AddRangeAsync(products);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<string>> GetAllBarcodes(List<string> barcodes)
+        {
+            return await _context.Products
+                .Where(p => barcodes.Contains(p.Barcode))
+                .Select(p => p.Barcode)
+                .ToListAsync();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using EL.Concrete.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace EL.Concrete
 {
@@ -8,6 +9,7 @@ namespace EL.Concrete
         Decrease = -1,
     }
 
+    [Index(nameof(ProductKey), Name = "IX_StockHistory_ProductKey")]
     public class StockHistory : BaseEntity
     {
         public StockHistoryType Type { get; set; }

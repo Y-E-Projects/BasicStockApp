@@ -18,5 +18,7 @@ namespace BL.Abstract
         List<ListModel.Product> GetListWithSupplier(Guid supplierKey);
         List<ListModel.Product> GetListWithLowStock();
         List<ListModel.TopSellProduct> GetTopProducts(int count, DateTime start, DateTime end);
+        Task CreateRange(List<Product> products);
+        Task<List<string>> GetAllBarcodes(List<string> barcodes);
     }
 }

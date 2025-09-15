@@ -1,8 +1,11 @@
-﻿using BL.Abstract;
+﻿using API.Hubs;
+using BL.Abstract;
 using DTO.Models;
 using EL.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace API.Controller
 {
@@ -16,6 +19,7 @@ namespace API.Controller
         private readonly ISellItemService _sellItemService;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly IReturnHistoryService _returnHistoryService;
+        private readonly IHubContext<SellHub> _sellHub;
 
         public SellController(
             IProductService productService,
@@ -23,7 +27,8 @@ namespace API.Controller
             ISellItemService sellItemService,
             IResourceLocalizer localizer,
             IServiceScopeFactory serviceScopeFactory,
-            IReturnHistoryService returnHistoryService)
+            IReturnHistoryService returnHistoryService,
+            IHubContext<SellHub> sellHub)
         {
             _productService = productService;
             _sellService = sellService;
@@ -31,10 +36,11 @@ namespace API.Controller
             _localizer = localizer;
             _serviceScopeFactory = serviceScopeFactory;
             _returnHistoryService = returnHistoryService;
+            _sellHub = sellHub;
         }
 
         [HttpPost]
-        public IActionResult Create(AddModel.CreateSellRequest request)
+        public async Task<IActionResult> Create(AddModel.CreateSellRequest request)
         {
             if (request == null || request.Items == null || !request.Items.Any())
                 return BadRequest(new
@@ -112,7 +118,7 @@ namespace API.Controller
 
                 _sellService.Add(sell);
 
-                Task.Run(() =>
+                await Task.Run(() =>
                 {
                     using var scope = _serviceScopeFactory.CreateScope();
                     var productService = scope.ServiceProvider.GetRequiredService<IProductService>();
@@ -122,6 +128,19 @@ namespace API.Controller
                         productService.DecreaseQuantity(item.ProductKey, item.Quantity);
                     }
                 });
+
+                ListModel.Sell sellDto = new ListModel.Sell
+                {
+                    SellCode = sell.SellCode,
+                    TotalAmount = sell.TotalAmount,
+                    TotalDiscount = sell.TotalDiscount,
+                    NetAmount = sell.NetAmount,
+                    ProductCount = sell.Items.Count,
+                    Date = sell.CreatedAt
+                };
+
+                await _sellHub.Clients.All.SendAsync("ReceiveSellUpdate", sellDto);
+                await _sellHub.Clients.All.SendAsync("ReceiveSellList");
 
                 return Ok(new
                 {

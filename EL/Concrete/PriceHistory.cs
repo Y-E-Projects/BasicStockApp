@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EL.Concrete
 {
+    [Index(nameof(ProductKey), Name = "IX_PriceHistory_ProductKey")]
     public class PriceHistory : BaseEntity
     {
         [Precision(18, 2)]
