@@ -2,6 +2,7 @@
 using DTO.Models;
 using EL.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace API.Controller
@@ -26,6 +27,19 @@ namespace API.Controller
         {
             var categories = _categoryService.GetList();
             return Ok(categories);
+        }
+
+        [HttpGet("Test")]
+        public async Task<IActionResult> Test()
+        {
+            var timer = Stopwatch.StartNew();
+            Guid key = await _categoryService.GetFirstKey();
+            timer.Stop();
+            return Ok(new
+            {
+                key,
+                second = timer.Elapsed.TotalSeconds,
+            });
         }
 
         [HttpPost]

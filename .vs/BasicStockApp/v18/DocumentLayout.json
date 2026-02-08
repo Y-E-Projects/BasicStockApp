@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\X\\Desktop\\Projects\\BasicStockApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{75E92AA5-865A-4864-A84D-9E45C8CFCE36}|API\\API.csproj|c:\\users\\x\\desktop\\projects\\basicstockapp\\api\\controller\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{75E92AA5-865A-4864-A84D-9E45C8CFCE36}|API\\API.csproj|solutionrelative:api\\controller\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "C:\\Users\\X\\Desktop\\Projects\\BasicStockApp\\API\\Controller\\CategoryController.cs",
+              "RelativeDocumentMoniker": "API\\Controller\\CategoryController.cs",
+              "ToolTip": "C:\\Users\\X\\Desktop\\Projects\\BasicStockApp\\API\\Controller\\CategoryController.cs",
+              "RelativeToolTip": "API\\Controller\\CategoryController.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAowHIAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-03T01:33:39.045Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
